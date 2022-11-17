@@ -1,5 +1,5 @@
 # Get the database using the method we defined in pymongo_test_insert file
-from pymongo_get_database import get_database
+from pymongo_db import get_database
 dbname = get_database()
 dbname["cpu_Specs"].insert_many([{"Manufacturer":"Intel", "modelName":"Core i3-1005G1", "launchDate":2019, "numCores":2, "numThreads":4, "baseClock":1.2, "boostClock":3.4},
  {"Manufacturer":"Intel", "modelName":"Core i3-10100", "launchDate":2020, "numCores":4, "numThreads":8, "baseClock":3.6, "boostClock":4.3},
