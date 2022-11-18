@@ -356,7 +356,7 @@ const steam_gpu_popularity = new mongoose.Schema(
 const amazonDataSchema = mongoose.model("amazonData", amazonData);
 const gpu_specsSchema = mongoose.model("gpu_specs", gpu_specs);
 const gpu_benchmarksSchema = mongoose.model("gpu_benchmarks", gpu_benchmarks);
-const gpu_scoreSchema = mongoose.model("gpu_benchmarks", gpu_score);
+const gpu_scoreSchema = mongoose.model("gpu_score", gpu_score);
 const cpu_specsSchema = mongoose.model("cpu_specs", cpu_specs);
 const cpu_benchmark_cinebenchSchema = mongoose.model(
   "cpu_benchmark_cinebench",

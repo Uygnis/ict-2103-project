@@ -1,23 +1,16 @@
 const router = require("express").Router();
-const { Gpu_specsSchema } = require("../models/model");
+const { Steam_gpu_popularitySchema } = require("../models/model");
 
 // api/gpu_specs/post
 router.post("/post", async (req, res) => {
-  const data = new Gpu_specsSchema({
+  const data = new Steam_gpu_popularitySchema({
     manufacturer: req.body.manufacturer,
-    productName: req.body.productName,
-    releaseYear: req.body.releaseYear,
-    memSize: req.body.memSize,
-    memBusWidth: req.body.memBusWidth,
-    gpuClock: req.body.gpuClock,
-    memClock: req.body.memClock,
-    unifiedShader: req.body.unifiedShader,
-    tmu: req.body.tmu,
-    rop: req.body.rop,
-    igp: req.body.igp,
-    bus: req.body.bus,
-    memType: req.body.memType,
-    gpuChip: req.body.gpuChip,
+    gpu_product_name: req.body.gpu_product_name,
+    ["MAR (%)"]: req.body["MAR (%)"],
+    ["MAY (%)"]: req.body["MAY (%)"],
+    ["JUN (%)"]: req.body["JUN (%)"],
+    ["JUL (%)"]: req.body["JUL (%)"],
+    ["CHANGE (%)"]: req.body["CHANGE (%)"],
   });
 
   try {
@@ -30,7 +23,7 @@ router.post("/post", async (req, res) => {
 // api/gpu_specs/get
 router.get("/get", async (req, res) => {
   try {
-    const data = await Gpu_specsSchema.find();
+    const data = await Steam_gpu_popularitySchema.find();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -39,7 +32,7 @@ router.get("/get", async (req, res) => {
 // api/gpu_specs/get/:id
 router.get("/get/:id", async (req, res) => {
   try {
-    const data = await Gpu_specsSchema.findById(req.params.id);
+    const data = await Steam_gpu_popularitySchema.findById(req.params.id);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -48,7 +41,7 @@ router.get("/get/:id", async (req, res) => {
 // api/gpu_specs/getQty
 router.get("/getQty", async (req, res) => {
   try {
-    const data = await Gpu_specsSchema.countDocuments();
+    const data = await Steam_gpu_popularitySchema.countDocuments();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -61,7 +54,7 @@ router.patch("/update/:id", async (req, res) => {
     const updatedData = req.body;
     const options = { new: true };
 
-    const result = await Gpu_specsSchema.findByIdAndUpdate(
+    const result = await Steam_gpu_popularitySchema.findByIdAndUpdate(
       id,
       updatedData,
       options
@@ -74,7 +67,9 @@ router.patch("/update/:id", async (req, res) => {
 // api/gpu_specs/delete/:id
 router.delete("/delete/:id", async (req, res) => {
   try {
-    const data = await Gpu_specsSchema.findByIdAndDelete(req.params.id);
+    const data = await Steam_gpu_popularitySchema.findByIdAndDelete(
+      req.params.id
+    );
     res.send(`Document with ${data.Listing} has been deleted..`);
   } catch (error) {
     res.status(500).json({ message: error.message });

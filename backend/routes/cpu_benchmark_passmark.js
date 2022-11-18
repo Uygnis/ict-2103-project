@@ -1,23 +1,20 @@
 const router = require("express").Router();
-const { Gpu_specsSchema } = require("../models/model");
+const { Cpu_benchmark_passmarkSchema } = require("../models/model");
 
-// api/gpu_specs/post
+// api/cpu_benchmark_passmark/post
 router.post("/post", async (req, res) => {
-  const data = new Gpu_specsSchema({
+  const data = new Cpu_benchmark_passmarkSchema({
     manufacturer: req.body.manufacturer,
-    productName: req.body.productName,
-    releaseYear: req.body.releaseYear,
-    memSize: req.body.memSize,
-    memBusWidth: req.body.memBusWidth,
-    gpuClock: req.body.gpuClock,
-    memClock: req.body.memClock,
-    unifiedShader: req.body.unifiedShader,
-    tmu: req.body.tmu,
-    rop: req.body.rop,
-    igp: req.body.igp,
-    bus: req.body.bus,
-    memType: req.body.memType,
-    gpuChip: req.body.gpuChip,
+    cpuName: req.body.cpuName,
+    price: req.body.price,
+    cpuMark: req.body.cpuMark,
+    cpuValue: req.body.cpuValue,
+    threadMark: req.body.threadMark,
+    threadValue: req.body.threadValue,
+    cores: req.body.cores,
+    testDate: req.body.testDate,
+    socket: req.body.socket,
+    category: req.body.category,
   });
 
   try {
@@ -27,41 +24,41 @@ router.post("/post", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-// api/gpu_specs/get
+// api/cpu_benchmark_passmark/get
 router.get("/get", async (req, res) => {
   try {
-    const data = await Gpu_specsSchema.find();
+    const data = await Cpu_benchmark_passmarkSchema.find();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-// api/gpu_specs/get/:id
+// api/cpu_benchmark_passmark/get/:id
 router.get("/get/:id", async (req, res) => {
   try {
-    const data = await Gpu_specsSchema.findById(req.params.id);
+    const data = await Cpu_benchmark_passmarkSchema.findById(req.params.id);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-// api/gpu_specs/getQty
+// api/cpu_benchmark_passmark/getQty
 router.get("/getQty", async (req, res) => {
   try {
-    const data = await Gpu_specsSchema.countDocuments();
+    const data = await Cpu_benchmark_passmarkSchema.countDocuments();
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-// api/gpu_specs/update/:id
+// api/cpu_benchmark_passmark/update/:id
 router.patch("/update/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const updatedData = req.body;
     const options = { new: true };
 
-    const result = await Gpu_specsSchema.findByIdAndUpdate(
+    const result = await Cpu_benchmark_passmarkSchema.findByIdAndUpdate(
       id,
       updatedData,
       options
@@ -71,10 +68,12 @@ router.patch("/update/:id", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-// api/gpu_specs/delete/:id
+// api/cpu_benchmark_passmark/delete/:id
 router.delete("/delete/:id", async (req, res) => {
   try {
-    const data = await Gpu_specsSchema.findByIdAndDelete(req.params.id);
+    const data = await Cpu_benchmark_passmarkSchema.findByIdAndDelete(
+      req.params.id
+    );
     res.send(`Document with ${data.Listing} has been deleted..`);
   } catch (error) {
     res.status(500).json({ message: error.message });

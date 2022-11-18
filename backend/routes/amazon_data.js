@@ -19,7 +19,7 @@ router.post("/post", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-// api/amazon_data/
+// api/amazon_data/get
 router.get("/get", async (req, res) => {
   try {
     const data = await AmazonDataSchema.find();
@@ -28,9 +28,85 @@ router.get("/get", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/amazon_data/:id
-router.get("/:id", function (req, res) {
-  res.json({ id: req.params.id });
+// api/amazon_data/get/:id
+router.get("/get/:id", async (req, res) => {
+  try {
+    const data = await AmazonDataSchema.findById(req.params.id);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// api/amazon_data/getPriceMax
+router.get("/getPriceMax", async (req, res) => {
+  try {
+    const data = await AmazonDataSchema.aggregate([
+      {
+        $sort: {
+          price: -1,
+        },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// api/amazon_data/getPriceMin
+router.get("/getPriceMin", async (req, res) => {
+  try {
+    const data = await AmazonDataSchema.aggregate([
+      {
+        $sort: {
+          price: 1,
+        },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// api/amazon_data/getQty
+router.get("/getQty", async (req, res) => {
+  try {
+    const data = await AmazonDataSchema.countDocuments();
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// api/amazon_data/update/:id
+router.patch("/update/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedData = req.body;
+    const options = { new: true };
+
+    const result = await AmazonDataSchema.findByIdAndUpdate(
+      id,
+      updatedData,
+      options
+    );
+    res.send(result);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+// api/amazon_data/delete/:id
+router.delete("/delete/:id", async (req, res) => {
+  try {
+    const data = await AmazonDataSchema.findByIdAndDelete(req.params.id);
+    res.send(`Document with ${data.Listing} has been deleted..`);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;
