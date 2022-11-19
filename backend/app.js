@@ -21,5 +21,5 @@ database.once("connected", () => {
   console.log("Database Connected");
 });
 
-const routes = require("./routes/routes");
-app.use("/api", routes);
+const mongoRoutes = require("./mongodb/routes/routes");
+app.use("/api/mongo", mongoRoutes);
