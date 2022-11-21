@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { AmazonDataSchema } = require("../models/model");
 
-// api/amazon_data/post
+// api/mongo/amazon_data/post
 router.post("/post", async (req, res) => {
   const data = new AmazonDataSchema({
     item_ID: req.body.item_ID,
@@ -19,7 +19,7 @@ router.post("/post", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-// api/amazon_data/get
+// api/mongo/amazon_data/get
 router.get("/get", async (req, res) => {
   try {
     const data = await AmazonDataSchema.find();
@@ -28,7 +28,7 @@ router.get("/get", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/amazon_data/get/:id
+// api/mongo/amazon_data/get/:id
 router.get("/get/:id", async (req, res) => {
   try {
     const data = await AmazonDataSchema.findById(req.params.id);
@@ -37,7 +37,7 @@ router.get("/get/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/amazon_data/getPriceMax
+// api/mongo/amazon_data/getPriceMax
 router.get("/getPriceMax", async (req, res) => {
   try {
     const data = await AmazonDataSchema.aggregate([
@@ -55,7 +55,7 @@ router.get("/getPriceMax", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/amazon_data/getPriceMin
+// api/mongo/amazon_data/getPriceMin
 router.get("/getPriceMin", async (req, res) => {
   try {
     const data = await AmazonDataSchema.aggregate([
@@ -73,7 +73,7 @@ router.get("/getPriceMin", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/amazon_data/getQty
+// api/mongo/amazon_data/getQty
 router.get("/getQty", async (req, res) => {
   try {
     const data = await AmazonDataSchema.countDocuments();
@@ -82,7 +82,7 @@ router.get("/getQty", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/amazon_data/update/:id
+// api/mongo/amazon_data/update/:id
 router.patch("/update/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -99,7 +99,7 @@ router.patch("/update/:id", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-// api/amazon_data/delete/:id
+// api/mongo/amazon_data/delete/:id
 router.delete("/delete/:id", async (req, res) => {
   try {
     const data = await AmazonDataSchema.findByIdAndDelete(req.params.id);
