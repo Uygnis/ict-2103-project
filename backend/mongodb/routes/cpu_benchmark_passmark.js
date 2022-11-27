@@ -80,4 +80,23 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
+// api/mongo/cpu_benchmark_passmark/getMaxCpuMark
+router.get("/getMaxCpuMark", async (req, res) => {
+  try {
+    const data = await Cpu_benchmark_passmarkSchema.aggregate([
+      {
+        $sort: {
+          cpuMark: -1,
+        },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 module.exports = router;
