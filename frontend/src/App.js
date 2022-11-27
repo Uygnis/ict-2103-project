@@ -35,6 +35,7 @@ function App() {
       let gpu_specs = axios.get(`${baseURL}/gpu_specs/get`);
       let gpu_benchmark = axios.get(`${baseURL}/gpu_benchmarks/get`);
       let gpu_score = axios.get(`${baseURL}/gpu_score/get`);
+      let amazon_gpu_cpu = axios.get(`${baseURL}/amazon_data/join`);
       await axios
         .all([
           amazon_data,
@@ -44,6 +45,7 @@ function App() {
           gpu_specs,
           gpu_benchmark,
           gpu_score,
+          amazon_gpu_cpu,
           maxCL,
           maxCpuMark,
         ])
@@ -57,9 +59,10 @@ function App() {
               gpu_specs: responses[4].data,
               gpu_benchmark: responses[5].data,
               gpu_score: responses[6].data,
+              amazon_gpu_cpu: responses[7].data,
             });
-            setMaxOpenCL(responses[7].data[0]);
-            setMaxCPUMark(responses[8].data[0]);
+            setMaxOpenCL(responses[8].data[0]);
+            setMaxCPUMark(responses[9].data[0]);
           })
         );
     } catch (err) {
@@ -69,7 +72,7 @@ function App() {
   useEffect(() => {
     fetchData();
   }, []);
-  // console.log(db);
+  console.log(db);
   return (
     <BrowserRouter>
       <Sidebar>
@@ -85,9 +88,7 @@ function App() {
             path="/comparison"
             element={
               <Comparison
-                amazonData={db.amazon_data}
-                gpuScore={db.gpu_score}
-                passmark={db.cpu_benchmark_passmark}
+                amazon_gpu_cpu={db.amazon_gpu_cpu}
                 gpuMax={maxOpenCL}
                 maxCPUMark={maxCPUMark}
               />

@@ -1,28 +1,7 @@
 import React from "react";
 import Card from "../components/card/Card";
 
-const Comparison = ({
-  amazonData,
-  gpuScore,
-  gpuMax = 0,
-  maxCPUMark = 0,
-  passmark,
-}) => {
-  amazonData?.map((item) => {
-    return (item.score = gpuScore?.find((gpu) => {
-      if (gpu.Device === item.GPU_Name) {
-        return gpu;
-      }
-    }));
-  });
-  amazonData?.map((item) => {
-    return (item.cpuScore = passmark?.find((cpu) => {
-      if (cpu.cpuName === item.CPU_Name) {
-        return cpu;
-      }
-    }));
-  });
-  console.log(amazonData);
+const Comparison = ({ gpuMax = 0, maxCPUMark = 0, amazon_gpu_cpu }) => {
   const MAX_GPU = gpuMax.OpenCL;
   const MAX_CPU = maxCPUMark.cpuMark;
   return (
@@ -35,7 +14,7 @@ const Comparison = ({
           gap: "1rem",
         }}
       >
-        {amazonData?.map((item) => (
+        {amazon_gpu_cpu?.map((item) => (
           <Card
             key={item.item_ID}
             item={item}
