@@ -72,5 +72,22 @@ router.delete("/delete/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
+// api/mongo/gpu_score/getMaxOpenCL
+router.get("/getMaxOpenCL", async (req, res) => {
+  try {
+    const data = await Gpu_scoreSchema.aggregate([
+      {
+        $sort: {
+          OpenCL: -1,
+        },
+      },
+      {
+        $limit: 1,
+      },
+    ]);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 module.exports = router;
