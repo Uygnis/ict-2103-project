@@ -40,6 +40,11 @@ const Sidebar = ({ children }) => {
       icon: <FaShoppingBag />,
     },
     {
+      path: "/comparison",
+      name: "Comparison",
+      icon: <FaThList />,
+    },
+    {
       path: "/productList",
       name: "Product List",
       icon: <FaThList />,
