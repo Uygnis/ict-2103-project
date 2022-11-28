@@ -51,6 +51,11 @@ router.get("/get/:id", async (req, res) => {
     const findObject = await AmazonDataSchema.findById(req.params.id);
     const data = await AmazonDataSchema.aggregate([
       {
+        $match: {
+          item_ID: findObject.item_ID,
+        },
+      },
+      {
         $lookup: {
           from: "gpu_Score",
           localField: "GPU_Name",
@@ -64,11 +69,6 @@ router.get("/get/:id", async (req, res) => {
           localField: "CPU_Name",
           foreignField: "cpuName",
           as: "cpu_score",
-        },
-      },
-      {
-        $match: {
-          item_ID: findObject.item_ID,
         },
       },
     ]);
