@@ -8,9 +8,10 @@ import Sidebar from './components/Sidebar';
 import Dashboard from './pages/Dashboard.jsx';
 import About from './pages/About.jsx';
 import Analytics from './pages/Analytics.jsx';
-import Comment from './pages/Comment.jsx';
+import Comparison from './pages/Comparison.jsx';
 import Product from './pages/Product.jsx';
 import ProductList from './pages/ProductList.jsx';
+import AddProduct from './pages/AddProduct.jsx';
 
 
 function App() {

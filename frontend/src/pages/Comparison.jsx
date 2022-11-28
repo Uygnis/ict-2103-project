@@ -35,4 +35,4 @@ const Comparison = ({ gpuMax = 0, maxCPUMark = 0, amazon_data }) => {
   );
 };
 
-export default ProductPage;
+export default Comparison;
