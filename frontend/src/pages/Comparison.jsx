@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../components/card/Card";
-import "./Comparison.css"
-const ProductPage = ({ gpuMax = 0, maxCPUMark = 0, amazon_gpu_cpu }) => {
+
+const Comparison = ({ gpuMax = 0, maxCPUMark = 0, amazon_data }) => {
   const MAX_GPU = gpuMax.OpenCL;
   const MAX_CPU = maxCPUMark.cpuMark;
   return (
@@ -22,7 +22,7 @@ const ProductPage = ({ gpuMax = 0, maxCPUMark = 0, amazon_gpu_cpu }) => {
           gap: "1rem",
         }}
       >
-        {amazon_gpu_cpu?.map((item) => (
+        {amazon_data?.map((item) => (
           <Card
             key={item.item_ID}
             item={item}
