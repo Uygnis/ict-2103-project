@@ -39,6 +39,11 @@ router.get("/get", async (req, res) => {
           as: "cpu_score",
         },
       },
+      {
+        $sort: {
+          "gpu_score.OpenCL": -1,
+        },
+      },
     ]);
     res.json(data);
   } catch (error) {
@@ -108,6 +113,38 @@ router.get("/q=:query", async (req, res) => {
           as: "cpu_score",
         },
       },
+    ]);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// api/mongo/amazon_data/gt
+router.get("/gt=:query", async (req, res) => {
+  try {
+    //query = "greater_than+smaller_than" *******************
+    const query = req.params.query.split("+");
+    let gt_value = query[0] - 0;
+    let lt_value = query[1] - 0;
+
+    const data = await AmazonDataSchema.aggregate([
+      {
+        $lookup: {
+          from: "gpu_Score",
+          localField: "GPU_Name",
+          foreignField: "Device",
+          as: "gpu_score",
+        },
+      },
+      {
+        $lookup: {
+          from: "cpu_benchmark_Passmark",
+          localField: "CPU_Name",
+          foreignField: "cpuName",
+          as: "cpu_score",
+        },
+      },
+      { $match: { "cpu_score.cpuMark": { $gt: gt_value, $lt: lt_value } } },
     ]);
     res.json(data);
   } catch (error) {
@@ -186,31 +223,4 @@ router.delete("/delete/:id", async (req, res) => {
   }
 });
 
-//--------SPECIAL API--------//
-// api/mongo/amazon_data/join
-router.get("/join", async (req, res) => {
-  try {
-    const data = await AmazonDataSchema.aggregate([
-      {
-        $lookup: {
-          from: "gpu_Score",
-          localField: "GPU_Name",
-          foreignField: "Device",
-          as: "gpu_score",
-        },
-      },
-      {
-        $lookup: {
-          from: "cpu_benchmark_Passmark",
-          localField: "CPU_Name",
-          foreignField: "cpuName",
-          as: "cpu_score",
-        },
-      },
-    ]);
-    res.json(data);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 module.exports = router;
