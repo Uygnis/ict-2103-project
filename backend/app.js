@@ -28,5 +28,5 @@ const mongoRoutes = require("./mongodb/routes/routes");
 app.use("/api/mongo", mongoRoutes);
 
 //MYSQL DB Connection STRING
-const sqlRoutes = require("./mysql/routes/routes");
-app.use("/api/mysql", sqlRoutes);
+// const sqlRoutes = require("./mysql/routes/routes");
+// app.use("/api/mysql", sqlRoutes);

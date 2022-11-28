@@ -45,12 +45,70 @@ router.get("/get", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
-
 // api/mongo/amazon_data/get/:id
 router.get("/get/:id", async (req, res) => {
   try {
-    const data = await AmazonDataSchema.findById(req.params.id);
+    const findObject = await AmazonDataSchema.findById(req.params.id);
+    const data = await AmazonDataSchema.aggregate([
+      {
+        $lookup: {
+          from: "gpu_Score",
+          localField: "GPU_Name",
+          foreignField: "Device",
+          as: "gpu_score",
+        },
+      },
+      {
+        $lookup: {
+          from: "cpu_benchmark_Passmark",
+          localField: "CPU_Name",
+          foreignField: "cpuName",
+          as: "cpu_score",
+        },
+      },
+      {
+        $match: {
+          item_ID: findObject.item_ID,
+        },
+      },
+    ]);
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+// api/mongo/amazon_data/p=:query
+router.get("/p=:query", async (req, res) => {
+  try {
+    let arr = [];
+    const query_result = await AmazonDataSchema.find({
+      Listing: { $regex: req.params.query },
+    });
+    query_result.forEach((e) => arr.push(e.Listing));
+
+    const data = await AmazonDataSchema.aggregate([
+      {
+        $match: {
+          Listing: { $in: arr },
+        },
+      },
+      {
+        $lookup: {
+          from: "gpu_Score",
+          localField: "GPU_Name",
+          foreignField: "Device",
+          as: "gpu_score",
+        },
+      },
+      {
+        $lookup: {
+          from: "cpu_benchmark_Passmark",
+          localField: "CPU_Name",
+          foreignField: "cpuName",
+          as: "cpu_score",
+        },
+      },
+    ]);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });

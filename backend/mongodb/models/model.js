@@ -352,7 +352,7 @@ const steam_gpu_popularity = new mongoose.Schema(
     autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
   }
 );
-
+amazonData.index({ CPU_Name: "text", GPU_Name: "text", Listing: "text" });
 const amazonDataSchema = mongoose.model("amazonData", amazonData);
 const gpu_specsSchema = mongoose.model("gpu_specs", gpu_specs);
 const gpu_benchmarksSchema = mongoose.model("gpu_benchmarks", gpu_benchmarks);
