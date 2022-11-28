@@ -39,7 +39,7 @@ const ProductPage = ({ gpuMax = 0, maxCPUMark = 0, amazon_data }) => {
           gap: "1rem",
         }}
       >
-        {products?.map((item) => (
+        {amazon_data?.map((item) => (
           <Card
             key={item.item_ID}
             item={item}
