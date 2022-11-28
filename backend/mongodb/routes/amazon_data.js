@@ -77,8 +77,8 @@ router.get("/get/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/mongo/amazon_data/p=:query
-router.get("/p=:query", async (req, res) => {
+// api/mongo/amazon_data/q=:query
+router.get("/q=:query", async (req, res) => {
   try {
     let arr = [];
     const query_result = await AmazonDataSchema.find({

@@ -45,7 +45,7 @@ const Sidebar = ({ children }) => {
       icon: <FaThList />,
     },
     {
-      path: "/comparison",
+      path: "/search",
       name: "Product Page",
       icon: <FaThList />,
     },
@@ -66,7 +66,7 @@ const Sidebar = ({ children }) => {
             to={item.path}
             key={index}
             className="link"
-            activeclassName="active"
+            activeclassname="active"
           >
             <div className="icon">{item.icon}</div>
             <div

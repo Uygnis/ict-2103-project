@@ -18,6 +18,7 @@ function App() {
   const [db, setDb] = useState({});
   const [maxOpenCL, setMaxOpenCL] = useState();
   const [maxCPUMark, setMaxCPUMark] = useState();
+  const [query, setQuery] = useState("");
   const fetchData = async () => {
     try {
       let maxCL = axios.get(`${baseURL}/gpu_score/getMaxOpenCL`);
@@ -82,12 +83,14 @@ function App() {
           <Route path="/product" element={<Product />} />
           <Route path="/productList" element={<ProductList />} />
           <Route
-            path="/comparison"
+            path="/search"
             element={
               <ProductPage
                 amazon_data={db.amazon_data}
                 gpuMax={maxOpenCL}
                 maxCPUMark={maxCPUMark}
+                query={query}
+                setQuery={setQuery}
               />
             }
           />
