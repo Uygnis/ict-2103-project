@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-    FaTh,
-    FaBars,
-    FaUserAlt,
-    FaRegChartBar,
-    FaCommentAlt,
-    FaShoppingBag,
-    FaThList
-}from "react-icons/fa";
-import { NavLink } from 'react-router-dom';
+  FaTh,
+  FaBars,
+  FaUserAlt,
+  FaRegChartBar,
+  FaCommentAlt,
+  FaShoppingBag,
+  FaThList,
+} from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 
 const Sidebar = ({children}) => {
@@ -31,8 +31,8 @@ const Sidebar = ({children}) => {
             icon:<FaRegChartBar/>
         },
         {
-            path:"/addproduct",
-            name:"AddProduct",
+            path:"/comment",
+            name:"Comment",
             icon:<FaCommentAlt/>
         },
         {
