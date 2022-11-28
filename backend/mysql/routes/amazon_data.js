@@ -65,7 +65,7 @@ router.get("/getPriceMin", (req, res) => {
 
 //localhost:5001/api/mysql/amazon_data/getQty
 router.get("/getQty", (req, res) => {
-  db.query("SELECT COUNT(item_ID) FROM amazon", (err, result) => {
+  db.query("SELECT COUNT(item_ID) FROM amazondata", (err, result) => {
     if (err) {
       console.log(err);
     }
