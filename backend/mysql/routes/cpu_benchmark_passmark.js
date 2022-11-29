@@ -86,4 +86,15 @@ router.delete("/delete/:cpuName", (req, res) => {
   });
 });
 
+//localhost:5001/api/mysql/cpu_benchmark_passmark/averageprice
+router.get("/averageprice", (req, res) => {
+  const qry5 = 'SELECT avg(price), manufacturer FROM cpu_benchmark_passmark WHERE price IS NOT NULL GROUP BY manufacturer';
+  db.query(qry5, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
 module.exports = router;
