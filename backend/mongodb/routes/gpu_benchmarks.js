@@ -76,5 +76,16 @@ router.delete("/delete/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+// checks if price attribute exists. API used to find all GPU available in the market
+// api/mongo/gpu_benchmarks/exists
+router.get("/exists", async (req, res) => {
+  try {
+    const data = await Gpu_benchmarksSchema.find({ price: { $exists: true } });
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 
 module.exports = router;
