@@ -172,7 +172,7 @@ router.get("/getPriceMin", async (req, res) => {
 router.get("/getQty", async (req, res) => {
   try {
     const data = await AmazonDataSchema.countDocuments();
-    res.json([{ item_ID: data }]);
+    res.json({ item_ID: data });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
