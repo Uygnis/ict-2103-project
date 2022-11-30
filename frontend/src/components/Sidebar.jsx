@@ -45,6 +45,11 @@ const Sidebar = ({ children }) => {
       name: "Product List",
       icon: <FaThList />,
     },
+    {
+      path: "/search",
+      name: "Search",
+      icon: <FaThList />,
+    },
   ];
   return (
     <div className="container">
