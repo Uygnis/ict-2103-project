@@ -9,23 +9,28 @@ const ProductPage = ({ gpuMax = 0, maxCPUMark = 0, query, setQuery }) => {
   const textRef = useRef();
   const [products, setProducts] = useState([]);
   console.log(query);
+
   async function fetchQuery() {
     try {
       const { data } = await axios.get(
-        `http://localhost:5001/api/mongo/amazon_data/q=${window.location.href.slice(
+        `http://localhost:5001/api/mysql/amazon_data/q=${window.location.href.slice(
           31
         )}`
       );
+      console.log(data)
       setProducts(data);
     } catch (err) {
       console.log(err);
     }
   }
+
+  
   useEffect(() => {
     fetchQuery();
     console.log(products);
     console.log(window.location.href.slice(31));
   }, [products.length]);
+
   return (
     <div>
       <h1>ProductPage</h1>
