@@ -1,7 +1,6 @@
 const router = require("express").Router();
-const {
-  AmazonDataSchema
-} = require("../models/model");
+const { AmazonDataSchema } = require("../models/model");
+
 // api/mongo/amazon_data/get
 router.get("/get", async (req, res) => {
   try {
@@ -96,12 +95,22 @@ router.get("/q=:query", async (req, res) => {
           as: "cpu_score",
         },
       },
+      { $unwind: "$cpu_score" },
+      { $unwind: "$gpu_score" },
     ]);
+
+    data.map((e) => {
+      e.CUDA = e.gpu_score.CUDA;
+      e.cpuName = e.cpu_score.cpuMark;
+      return;
+    });
+
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 // api/mongo/amazon_data/gt
 router.get("/gt=:query", async (req, res) => {
   try {
@@ -179,6 +188,5 @@ router.get("/getQty", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 module.exports = router;

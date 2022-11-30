@@ -22,7 +22,7 @@ const Card = ({ item, MAX_GPU, MAX_CPU }) => {
             style={{
               paddingTop: "10px",
               paddingBottom: "10px",
-              width: `${(item.cpu_score[0].cpuMark / MAX_CPU) * 100}%`,
+              width: `${(item.cpuMark / MAX_CPU) * 100}%`,
               backgroundColor: "orange",
             }}
           ></div>
@@ -43,7 +43,7 @@ const Card = ({ item, MAX_GPU, MAX_CPU }) => {
             style={{
               paddingTop: "10px",
               paddingBottom: "10px",
-              width: `${(item.gpu_score[0].OpenCL / MAX_GPU) * 100}%`,
+              width: `${(item.OpenCL / MAX_GPU) * 100}%`,
               backgroundColor: "green",
             }}
           ></div>
