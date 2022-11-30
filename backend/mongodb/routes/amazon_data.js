@@ -6,15 +6,15 @@ router.get("/get", async (req, res) => {
     const data = await AmazonDataSchema.aggregate([
       {
         $lookup: {
-          from: "gpu_Score",
+          from: "gpu_Specs",
           localField: "GPU_Name",
-          foreignField: "Device",
-          as: "gpu_score",
+          foreignField: "productName",
+          as: "gpu_specs",
         },
       },
       {
         $lookup: {
-          from: "cpu_benchmark_Passmark",
+          from: "cpu_Specs",
           localField: "CPU_Name",
           foreignField: "cpuName",
           as: "cpu_score",
@@ -172,11 +172,10 @@ router.get("/getPriceMin", async (req, res) => {
 router.get("/getQty", async (req, res) => {
   try {
     const data = await AmazonDataSchema.countDocuments();
-    res.json(data);
+    res.json({ _id: data });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
-
 
 module.exports = router;
