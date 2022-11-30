@@ -33,6 +33,39 @@ const amazonData = new mongoose.Schema(
     autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
   }
 );
+const companyData = new mongoose.Schema(
+  {
+    item_ID: {
+      // required: true,
+      type: Number,
+    },
+    CPU_Name: {
+      // required: true,
+      type: String,
+    },
+    GPU_Name: {
+      // required: true,
+      type: String,
+    },
+    ram: {
+      // required: true,
+      type: Number,
+    },
+    price: {
+      // required: true,
+      type: Number,
+    },
+    Listing: {
+      // required: true,
+      type: String,
+    },
+  },
+  {
+    collection: "companyData",
+    bufferCommands: false,
+    autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
+  }
+);
 const gpu_specs = new mongoose.Schema(
   {
     manufacturer: {
@@ -143,6 +176,55 @@ const gpu_benchmarks = new mongoose.Schema(
   },
   {
     collection: "gpu_Benchmarks",
+    bufferCommands: false,
+    autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
+  }
+);
+const company_gpu = new mongoose.Schema(
+  {
+    Manufacturer: {
+      // required: true,
+      type: String,
+    },
+    gpuName: {
+      // required: true,
+      type: String,
+    },
+    G3Dmark: {
+      // required: true,
+      type: Number,
+    },
+    G2Dmark: {
+      // required: true,
+      type: Number,
+    },
+    price: {
+      // required: true,
+      type: Number,
+    },
+    gpuValue: {
+      // required: true,
+      type: Number,
+    },
+    TDP: {
+      // required: true,
+      type: Number,
+    },
+    powerPerformance: {
+      // required: true,
+      type: Number,
+    },
+    testDate: {
+      // required: true,
+      type: Number,
+    },
+    category: {
+      // required: true,
+      type: String,
+    },
+  },
+  {
+    collection: "company_gpu",
     bufferCommands: false,
     autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
   }
@@ -315,6 +397,59 @@ const cpu_benchmark_passmark = new mongoose.Schema(
     autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
   }
 );
+const company_cpu = new mongoose.Schema(
+  {
+    manufacturer: {
+      // required: true,
+      type: String,
+    },
+    cpuName: {
+      // required: true,
+      type: String,
+    },
+    price: {
+      // required: true,
+      type: Number,
+    },
+    cpuMark: {
+      // required: true,
+      type: Number,
+    },
+    cpuValue: {
+      // required: true,
+      type: Number,
+    },
+    threadMark: {
+      // required: true,
+      type: Number,
+    },
+    threadValue: {
+      // required: true,
+      type: Number,
+    },
+    cores: {
+      // required: true,
+      type: Number,
+    },
+    testDate: {
+      // required: true,
+      type: Number,
+    },
+    socket: {
+      // required: true,
+      type: String,
+    },
+    category: {
+      // required: true,
+      type: String,
+    },
+  },
+  {
+    collection: "company_cpu",
+    bufferCommands: false,
+    autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
+  }
+);
 const steam_gpu_popularity = new mongoose.Schema(
   {
     manufacturer: {
@@ -352,8 +487,12 @@ const steam_gpu_popularity = new mongoose.Schema(
     autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
   }
 );
+//may not need the index here
 amazonData.index({ CPU_Name: "text", GPU_Name: "text", Listing: "text" });
 const amazonDataSchema = mongoose.model("amazonData", amazonData);
+const companyDataSchema = mongoose.model("companyData", companyData);
+const company_gpuSchema = mongoose.model("company_gpu", company_gpu);
+const company_cpuSchema = mongoose.model("company_cpu", company_cpu);
 const gpu_specsSchema = mongoose.model("gpu_specs", gpu_specs);
 const gpu_benchmarksSchema = mongoose.model("gpu_benchmarks", gpu_benchmarks);
 const gpu_scoreSchema = mongoose.model("gpu_score", gpu_score);
@@ -380,4 +519,7 @@ module.exports = {
   Cpu_benchmark_cinebenchSchema: cpu_benchmark_cinebenchSchema,
   Cpu_benchmark_passmarkSchema: cpu_benchmark_passmarkSchema,
   Steam_gpu_popularitySchema: steam_gpu_popularitySchema,
+  CompanyDataSchema:companyDataSchema,
+  Company_cpuSchema:company_cpuSchema,
+  Company_gpuSchema:company_gpuSchema
 };

@@ -2,6 +2,9 @@ const router = require("express").Router();
 
 // split up route handling
 router.use("/amazon_data", require("./amazon_data"));
+router.use("/company_data", require("./company_data"));
+router.use("/company_cpu", require("./company_cpu"));
+router.use("/company_gpu", require("./company_gpu"));
 router.use("/gpu_specs", require("./gpu_specs"));
 router.use("/gpu_score", require("./gpu_score"));
 router.use("/gpu_benchmarks", require("./gpu_benchmarks"));
