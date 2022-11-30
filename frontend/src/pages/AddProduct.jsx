@@ -14,19 +14,19 @@ const AddProduct = () => {
     price:'',
     Listing:'',
   });
+
   const handleClick = e => {
-    e.preventDefault();
     fetch('http://localhost:5001/api/mongo/company_data/post', {
        method: 'POST',
-       body: JSON.stringify({
-          ...device
-       }),
+       body: JSON.stringify(
+          device
+       ),
        headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+          'Content-type': 'application/json',
        },
     })
        .then((res) => res.json())
-       .then((company) => {
+       .then((e) => {
        })
        .catch((err) => {
           console.log(err.message);
@@ -138,11 +138,13 @@ const AddProduct = () => {
               >
                 Price($)
               </th>
+             
             </tr>
           </thead>
         </table>
       </div>
       <Company company={company}/>
+
     </div>
     
   );
