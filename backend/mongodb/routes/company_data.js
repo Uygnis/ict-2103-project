@@ -25,18 +25,18 @@ router.get("/get", async (req, res) => {
     const data = await CompanyDataSchema.aggregate([
       {
         $lookup: {
-          from: "gpu_Score",
+          from: "company_gpu",
           localField: "GPU_Name",
-          foreignField: "Device",
-          as: "gpu_score",
+          foreignField: "gpuName",
+          as: "gpu_specs",
         },
       },
       {
         $lookup: {
-          from: "cpu_benchmark_Passmark",
+          from: "company_cpu",
           localField: "CPU_Name",
           foreignField: "cpuName",
-          as: "cpu_score",
+          as: "cpu_specs",
         },
       },
       {
