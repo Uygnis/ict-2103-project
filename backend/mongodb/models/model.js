@@ -370,21 +370,9 @@ const company_cpu = new mongoose.Schema(
       // required: true,
       type: Number,
     },
-    cores: {
-      // required: true,
-      type: Number,
-    },
     testDate: {
       // required: true,
       type: Number,
-    },
-    socket: {
-      // required: true,
-      type: String,
-    },
-    category: {
-      // required: true,
-      type: String,
     },
   },
   {
