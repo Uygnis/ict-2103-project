@@ -16,7 +16,7 @@ router.get("/get", (req, res) => {
 router.get("/get/:id", (req, res) => {
   const item_ID = req.params.id;
   console.log(req.params);
-  const qry1 = `SELECT * FROM amazon JOIN cpu_specs ON amazon.CPU_Name = cpu_specs.modelName JOIN gpu_specs ON amazon.GPU_Name = gpu_specs.productName WHERE item_ID = "${id}"`;
+  const qry1 = `SELECT * FROM amazon JOIN cpu_specs ON amazon.CPU_Name = cpu_specs.modelName JOIN gpu_specs ON amazon.GPU_Name = gpu_specs.productName WHERE item_ID = "${item_ID}"`;
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);
