@@ -9,14 +9,15 @@ import {
   FaThList,
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import AddProduct from "../pages/AddProduct";
 
 const Sidebar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
   const menuItem = [
     {
-      path: "/",
-      name: "Dashboard",
+      path: "/addproduct",
+      name: "Add Product",
       icon: <FaTh />,
     },
     {
@@ -42,11 +43,6 @@ const Sidebar = ({ children }) => {
     {
       path: "/productList",
       name: "Product List",
-      icon: <FaThList />,
-    },
-    {
-      path: "/search",
-      name: "Product Page",
       icon: <FaThList />,
     },
   ];
