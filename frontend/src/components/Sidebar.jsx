@@ -45,6 +45,11 @@ const Sidebar = ({ children }) => {
       name: "Product List",
       icon: <FaThList />,
     },
+    {
+      path: "/gpuList",
+      name: "Gpu List",
+      icon: <FaThList />,
+    },
   ];
   return (
     <div className="container">
