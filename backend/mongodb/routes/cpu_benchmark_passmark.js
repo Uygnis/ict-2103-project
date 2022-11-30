@@ -95,5 +95,23 @@ router.get("/getMaxCpuMark", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+// api/mongo/cpu_benchmark_passmark/avg
+router.get("/avg", async (req, res) => {
+  try {
+    const data = await Cpu_benchmark_passmarkSchema.aggregate([
+      {
+        $group: {
+          _id: "$manufacturer",
+          sum: { $sum: "$price" },
+          avg: { $avg: "$price" },
+        },
+      },
+    ]);
+
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 module.exports = router;
