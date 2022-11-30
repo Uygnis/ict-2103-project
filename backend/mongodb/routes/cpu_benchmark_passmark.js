@@ -11,10 +11,7 @@ router.post("/post", async (req, res) => {
     cpuValue: req.body.cpuValue,
     threadMark: req.body.threadMark,
     threadValue: req.body.threadValue,
-    cores: req.body.cores,
     testDate: req.body.testDate,
-    socket: req.body.socket,
-    category: req.body.category,
   });
 
   try {

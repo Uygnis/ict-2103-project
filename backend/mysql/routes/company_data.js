@@ -22,7 +22,7 @@ router.post("/post", (req, res) => {
 
 //localhost:5001/api/mysql/company_data/get
 router.get("/get", (req, res) => {
-  const qry1 = 'SELECT * FROM company_data, company_cpu, company_gpu WHERE company_data.CPU_NAME = company_cpu.cpuName AND company_data.GPU_NAME = company_gpu.Device';
+  const qry1 = 'SELECT * FROM company_data INNER JOIN company_cpu ON company_data.CPU_NAME = company_cpu.cpuName INNER JOIN company_gpu ON company_data.GPU_NAME = company_gpu.Device';
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);
@@ -79,7 +79,7 @@ router.get("/getPriceMin", (req, res) => {
 
 //localhost:5001/api/mysql/company_data/getQty
 router.get("/getQty", (req, res) => {
-  db.query('SELECT COUNT(item_ID) FROM company_data', (err, result) => {
+  db.query('SELECT COUNT(item_ID) as item_ID FROM company_data', (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -112,40 +112,6 @@ router.delete("/delete/:item_ID", (req, res) => {
     }
     res.send(result);
     rconsole.log("Number of records deleted: " + result.affectedRows);
-  });
-});
-
-//localhost:5001/api/mysql/company_data/join
-router.get("/join", (req, res) => {
-  db.query('SELECT * FROM company_data INNER JOIN company_cpu ON company_data.CPU_NAME = company_cpu.cpuName INNER JOIN company_gpu ON company_data.GPU_NAME = company_gpu.Device', (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(result);
-  });
-});
-
-//localhost:5001/api/mysql/company_data/filter/:cpuMark
-router.get("/filter/:cpuMark", (req, res) => {
-  const cpuMark = req.params.cpuMark;
-  const qry6 = 'SELECT * FROM company_data INNER JOIN company_cpu ON company_data.CPU_NAME = company_cpu.cpuName INNER JOIN company_gpu ON company_data.GPU_NAME = company_gpu.Device WHERE company_cpu.cpuMark >= ${cpuMark}';
-  db.query(qry6, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(result);
-  });
-});
-
-//localhost:5001/api/mysql/company_data/sort
-router.get("/sort", (req, res) => {
-  const OpenCL = req.params.OpenCL
-  const qry7 = 'SELECT * FROM company_data INNER JOIN company_cpu ON company_data.CPU_NAME = company_cpu.cpuName INNER JOIN company_gpu ON company_data.GPU_NAME = company_gpu.Device ORDER BY company_gpu.OpenCL DESC';
-  db.query(qry7, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(result);
   });
 });
 

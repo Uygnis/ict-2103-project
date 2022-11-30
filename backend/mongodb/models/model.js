@@ -299,51 +299,6 @@ const cpu_specs = new mongoose.Schema(
     autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
   }
 );
-const cpu_benchmark_cinebench = new mongoose.Schema(
-  {
-    Manufacturer: {
-      // required: true,
-      type: String,
-    },
-    cpuName: {
-      // required: true,
-      type: String,
-    },
-    singleScore: {
-      // required: true,
-      type: Number,
-    },
-    multiScore: {
-      // required: true,
-      type: Number,
-    },
-    cores: {
-      // required: true,
-      type: Number,
-    },
-    threads: {
-      // required: true,
-      type: Number,
-    },
-    baseClock: {
-      // required: true,
-      type: Number,
-    },
-    turboClock: {
-      // required: true,
-      type: Number,
-    },
-    category: {
-      // required: true,
-      type: String,
-    },
-  },
-  {
-    collection: "cpu_benchmark_Cinebench",
-    bufferCommands: false,
-    autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
-  }
-);
 const cpu_benchmark_passmark = new mongoose.Schema(
   {
     manufacturer: {
@@ -374,21 +329,9 @@ const cpu_benchmark_passmark = new mongoose.Schema(
       // required: true,
       type: Number,
     },
-    cores: {
-      // required: true,
-      type: Number,
-    },
     testDate: {
       // required: true,
       type: Number,
-    },
-    socket: {
-      // required: true,
-      type: String,
-    },
-    category: {
-      // required: true,
-      type: String,
     },
   },
   {
@@ -427,21 +370,9 @@ const company_cpu = new mongoose.Schema(
       // required: true,
       type: Number,
     },
-    cores: {
-      // required: true,
-      type: Number,
-    },
     testDate: {
       // required: true,
       type: Number,
-    },
-    socket: {
-      // required: true,
-      type: String,
-    },
-    category: {
-      // required: true,
-      type: String,
     },
   },
   {
@@ -450,43 +381,7 @@ const company_cpu = new mongoose.Schema(
     autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
   }
 );
-const steam_gpu_popularity = new mongoose.Schema(
-  {
-    manufacturer: {
-      // required: true,
-      type: String,
-    },
-    gpu_product_name: {
-      // required: true,
-      type: String,
-    },
-    ["MAR (%)"]: {
-      // required: true,
-      type: Number,
-    },
-    ["MAY (%)"]: {
-      // required: true,
-      type: Number,
-    },
-    ["JUN (%)"]: {
-      // required: true,
-      type: Number,
-    },
-    ["JUL (%)"]: {
-      // required: true,
-      type: Number,
-    },
-    ["CHANGE (%)"]: {
-      // required: true,
-      type: Number,
-    },
-  },
-  {
-    collection: "steam_gpu_Popularity",
-    bufferCommands: false,
-    autoCreate: false, // disable `autoCreate` since `bufferCommands` is false
-  }
-);
+
 //may not need the index here
 amazonData.index({ CPU_Name: "text", GPU_Name: "text", Listing: "text" });
 const amazonDataSchema = mongoose.model("amazonData", amazonData);
@@ -497,17 +392,9 @@ const gpu_specsSchema = mongoose.model("gpu_specs", gpu_specs);
 const gpu_benchmarksSchema = mongoose.model("gpu_benchmarks", gpu_benchmarks);
 const gpu_scoreSchema = mongoose.model("gpu_score", gpu_score);
 const cpu_specsSchema = mongoose.model("cpu_specs", cpu_specs);
-const cpu_benchmark_cinebenchSchema = mongoose.model(
-  "cpu_benchmark_cinebench",
-  cpu_benchmark_cinebench
-);
 const cpu_benchmark_passmarkSchema = mongoose.model(
   "cpu_benchmark_passmark",
   cpu_benchmark_passmark
-);
-const steam_gpu_popularitySchema = mongoose.model(
-  "csteam_gpu_popularity",
-  steam_gpu_popularity
 );
 
 module.exports = {
@@ -516,10 +403,8 @@ module.exports = {
   Gpu_benchmarksSchema: gpu_benchmarksSchema,
   Gpu_scoreSchema: gpu_scoreSchema,
   Cpu_specsSchema: cpu_specsSchema,
-  Cpu_benchmark_cinebenchSchema: cpu_benchmark_cinebenchSchema,
   Cpu_benchmark_passmarkSchema: cpu_benchmark_passmarkSchema,
-  Steam_gpu_popularitySchema: steam_gpu_popularitySchema,
-  CompanyDataSchema:companyDataSchema,
-  Company_cpuSchema:company_cpuSchema,
-  Company_gpuSchema:company_gpuSchema
+  CompanyDataSchema: companyDataSchema,
+  Company_cpuSchema: company_cpuSchema,
+  Company_gpuSchema: company_gpuSchema,
 };

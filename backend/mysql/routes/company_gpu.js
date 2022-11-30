@@ -4,13 +4,17 @@ const db = require("../config/db");
 //MYSQL DB Connection
 //localhost:5001/api/mysql/company_gpu/post
 router.post("/post", (req, res) => {
-  const Device = req.params.Device;
+  const gpuName = req.params.gpuName;
   const Manufacturer = req.params.Manufacturer;
-  const CUDA = req.params.CUDA;
-  const Metal = req.params.Metal;
-  const OpenCL = req.params.OpenCL;
-  const Vulkan = req.params.Vulkan;
-  const qry1 = 'INSERT INTO company_gpu(Device, Manufacturer, CUDA, Metal, OpenCL, Vulkan) VALUES (?, ?, ?, ?, ?, ?)';
+  const G3Dmark = req.params.G3Dmark;
+  const G2Dmark = req.params.G2Dmark;
+  const price = req.params.price;
+  const gpuValue = req.params.gpuValue;
+  const TDP = req.params.TDP;
+  const powerPerformance = req.params.powerPerformance;
+  const testDate = req.params.testDate;
+  const category = req.params.category;
+  const qry1 = 'INSERT INTO company_gpu(gpuName, Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);
@@ -30,11 +34,10 @@ router.get("/get", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_gpu/get/:Device
-router.get("/get/:Device", (req, res) => {
-  const Device = req.params.Device;
-  console.log(req.params);
-  const qry2 = `SELECT * FROM company_gpu WHERE Device = ${Device}`;
+//localhost:5001/api/mysql/company_gpu/get/:id
+router.get("/get/:id", (req, res) => {
+  const gpuName = req.params.gpuName;
+  const qry2 = `SELECT * FROM company_gpu WHERE gpuName = ${id}`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -45,7 +48,7 @@ router.get("/get/:Device", (req, res) => {
 
 //localhost:5001/api/mysql/company_gpu/getQty
 router.get("/getQty", (req, res) => {
-  db.query("SELECT COUNT(Device) FROM company_gpu", (err, result) => {
+  db.query("SELECT COUNT(gpuName) AS gpuName FROM company_gpu", (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -53,11 +56,11 @@ router.get("/getQty", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_gpu/update/:Device
-router.patch("/update/:Device", (req, res) => {
-  const Device = req.params.Device;
-  const {Manufacturer, CUDA, Metal, OpenCL, Vulkan} = req.body;
-  const qry3 = 'UPDATE gpu_benchmarks SET (Manufacturer, CUDA, Metal, OpenCL, Vulkan) VALUES (?, ?, ?, ?, ?) WHERE Device = ${Device}';
+//localhost:5001/api/mysql/company_gpu/update/:gpuName
+router.patch("/update/:id", (req, res) => {
+  const gpuName = req.params.gpuName;
+  const {Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category} = req.body;
+  const qry3 = 'UPDATE company_gpu SET (Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE gpuName = ${id}';
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -67,11 +70,11 @@ router.patch("/update/:Device", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_gpu/delete/:Device
-router.delete("/delete/:Device", (req, res) => {
-  const Device = req.params.Device;
-  const {Manufacturer, CUDA, Metal, OpenCL, Vulkan} = req.body;
-  const qry4 = 'DELETE * FROM gpu_benchmarks WHERE Device = ${Device}'
+//localhost:5001/api/mysql/company_gpu/delete/:id
+router.delete("/delete/:id", (req, res) => {
+  const gpuName = req.params.gpuName;
+  const {Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category} = req.body;
+  const qry4 = 'DELETE * FROM company_gpu WHERE gpuName = ${id}'
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);

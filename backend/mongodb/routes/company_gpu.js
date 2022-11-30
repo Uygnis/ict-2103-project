@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { Company_gpuSchema } = require("../models/model");
 
-// api/mongo/gpu_benchmarks/post
+// api/mongo/company_gpu/post
 router.post("/post", async (req, res) => {
   const data = new Company_gpuSchema({
     Manufacturer: req.body.Manufacturer,
@@ -23,7 +23,7 @@ router.post("/post", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-// api/mongo/gpu_benchmarks/get
+// api/mongo/company_gpu/get
 router.get("/get", async (req, res) => {
   try {
     const data = await Company_gpuSchema.find();
@@ -32,7 +32,7 @@ router.get("/get", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/mongo/gpu_benchmarks/get/:id
+// api/mongo/company_gpu/get/:id
 router.get("/get/:id", async (req, res) => {
   try {
     const data = await Company_gpuSchema.findById(req.params.id);
@@ -41,7 +41,7 @@ router.get("/get/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/mongo/gpu_benchmarks/getQty
+// api/mongo/company_gpu/getQty
 router.get("/getQty", async (req, res) => {
   try {
     const data = await Company_gpuSchema.countDocuments();
@@ -50,7 +50,7 @@ router.get("/getQty", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-// api/mongo/gpu_benchmarks/update/:id
+// api/mongo/company_gpu/update/:id
 router.patch("/update/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -67,21 +67,11 @@ router.patch("/update/:id", async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 });
-// api/mongo/gpu_benchmarks/delete/:id
+// api/mongo/company_gpu/delete/:id
 router.delete("/delete/:id", async (req, res) => {
   try {
     const data = await Company_gpuSchema.findByIdAndDelete(req.params.id);
     res.send(`Document with ${data.Listing} has been deleted..`);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-// checks if price attribute exists. API used to find all GPU available in the market
-// api/mongo/gpu_benchmarks/exists
-router.get("/exists", async (req, res) => {
-  try {
-    const data = await Company_gpuSchema.find({ price: { $exists: true } });
-    res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

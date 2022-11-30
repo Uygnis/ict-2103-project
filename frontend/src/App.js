@@ -28,9 +28,6 @@ function App() {
       );
       let amazon_data = axios.get(`${baseURL}/amazon_data/get`);
       let cpu_specs = axios.get(`${baseURL}/cpu_specs/get`);
-      let cpu_benchmark_cinebench = axios.get(
-        `${baseURL}/cpu_benchmark_cinebench/get`
-      );
       let cpu_benchmark_passmark = axios.get(
         `${baseURL}/cpu_benchmark_passmark/get`
       );
@@ -41,7 +38,6 @@ function App() {
         .all([
           amazon_data,
           cpu_specs,
-          cpu_benchmark_cinebench,
           cpu_benchmark_passmark,
           gpu_specs,
           gpu_benchmark,
@@ -54,14 +50,13 @@ function App() {
             setDb({
               amazon_data: responses[0].data,
               cpu_specs: responses[1].data,
-              cpu_benchmark_cinebench: responses[2].data,
-              cpu_benchmark_passmark: responses[3].data,
-              gpu_specs: responses[4].data,
-              gpu_benchmark: responses[5].data,
-              gpu_score: responses[6].data,
+              cpu_benchmark_passmark: responses[2].data,
+              gpu_specs: responses[3].data,
+              gpu_benchmark: responses[4].data,
+              gpu_score: responses[5].data,
             });
-            setMaxOpenCL(responses[7].data[0]);
-            setMaxCPUMark(responses[8].data[0]);
+            setMaxOpenCL(responses[6].data[0]);
+            setMaxCPUMark(responses[7].data[0]);
           })
         );
     } catch (err) {
@@ -89,7 +84,6 @@ function App() {
             path="/search"
             element={
               <ProductPage
-                amazon_data={db.amazon_data}
                 gpuMax={maxOpenCL}
                 maxCPUMark={maxCPUMark}
                 query={query}
