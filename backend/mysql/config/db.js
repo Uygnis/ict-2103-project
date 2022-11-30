@@ -7,4 +7,8 @@ const db = mysql.createConnection({
   database: "jansendb",
 });
 
+//Amazon_data.index(
+//({item_ID: integer, CPU_Name: VARCHAR, GPU_Name: VARCHAR})
+//)
+
 module.exports = db;

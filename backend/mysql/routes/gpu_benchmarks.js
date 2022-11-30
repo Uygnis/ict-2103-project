@@ -37,7 +37,7 @@ router.get("/get", (req, res) => {
 //localhost:5001/api/mysql/gpu_benchmarks/get/:id
 router.get("/get/:id", (req, res) => {
   const gpuName = req.params.id;
-  const qry2 = `SELECT * FROM gpu_benchmarks WHERE gpuName = "${id}"`;
+  const qry2 = `SELECT * FROM gpu_benchmarks WHERE gpuName = "${gpuName}"`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -60,7 +60,7 @@ router.get("/getQty", (req, res) => {
 router.patch("/update/:id", (req, res) => {
   const gpuName = req.params.gpuName;
   const {Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category} = req.body;
-  const qry3 = `UPDATE gpu_benchmarks SET (Manufacturer = "${Manufacturer}", G3Dmark = "${G3Dmark}", G2Dmark = "${G2Dmark}", price = "${price}", gpuValue = "${gpuValue}", TDP = "${TDP}", powerPerformance = "${powerPerformance}", testDate = "${testDate}", category = "${category}") WHERE gpuName = "${id}"`;
+  const qry3 = `UPDATE gpu_benchmarks SET (Manufacturer = "${Manufacturer}", G3Dmark = "${G3Dmark}", G2Dmark = "${G2Dmark}", price = "${price}", gpuValue = "${gpuValue}", TDP = "${TDP}", powerPerformance = "${powerPerformance}", testDate = "${testDate}", category = "${category}") WHERE gpuName = "${gpuName}"`;
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -74,7 +74,7 @@ router.patch("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   const gpuName = req.params.id;
   const {Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category} = req.body;
-  const qry4 = `DELETE * FROM gpu_benchmarks WHERE gpuName = "${id}"`
+  const qry4 = `DELETE * FROM gpu_benchmarks WHERE gpuName = "${gpuName}"`
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);

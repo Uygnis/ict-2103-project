@@ -36,7 +36,7 @@ router.get("/get", (req, res) => {
 router.get("/get/:id", (req, res) => {
   const modelName = req.params.id;
   //console.log(req.params.cpuName);
-  const qry2 = `SELECT * FROM cpu_specs WHERE modelName = "${id}"`;
+  const qry2 = `SELECT * FROM cpu_specs WHERE modelName = "${modelName}"`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -59,7 +59,7 @@ router.get("/getQty", (req, res) => {
 router.patch("/update/:id", (req, res) => {
   const modelName = req.params.modelName;
   const {Manufacturer, launchDate, numCores, numThreads, baseClock, boostClock} = req.body;
-  const qry3 = `UPDATE cpu_specs SET (Manufacturer = "${Manufacturer}", launchDate = "${launchDate}", numCores = "${numCores}", numThreads = "${numThreads}", baseClock = "${baseClock}", boostClock = "${boostClock}") WHERE modelName = "${id}"`;
+  const qry3 = `UPDATE cpu_specs SET (Manufacturer = "${Manufacturer}", launchDate = "${launchDate}", numCores = "${numCores}", numThreads = "${numThreads}", baseClock = "${baseClock}", boostClock = "${boostClock}") WHERE modelName = "${modelName}"`;
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -73,7 +73,7 @@ router.patch("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   const modelName = req.params.id;
   const {Manufacturer, launchDate, numCores, numThreads, baseClock, boostClock} = req.body;
-  const qry4 = `DELETE * FROM cpu_specs WHERE modelName = "${id}"`
+  const qry4 = `DELETE * FROM cpu_specs WHERE modelName = "${modelName}"`
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);

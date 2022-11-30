@@ -34,7 +34,7 @@ router.get("/get", (req, res) => {
 router.get("/get/:id", (req, res) => {
   const Device = req.params.id;
   console.log(req.params);
-  const qry2 = `SELECT * FROM gpu_score WHERE Device = "${id}"`;
+  const qry2 = `SELECT * FROM gpu_score WHERE Device = "${Device}"`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -57,7 +57,7 @@ router.get("/getQty", (req, res) => {
 router.patch("/update/:id", (req, res) => {
   const Device = req.params.id;
   const {Manufacturer, CUDA, Metal, OpenCL, Vulkan} = req.body;
-  const qry3 = `UPDATE gpu_score SET (Manufacturer = "${Manufacturer}", CUDA = "${CUDA}", Metal = "${Metal}", OpenCL = "${OpenCL}", Vulkan = "${Vulkan}") WHERE Device = "${id}"`;
+  const qry3 = `UPDATE gpu_score SET (Manufacturer = "${Manufacturer}", CUDA = "${CUDA}", Metal = "${Metal}", OpenCL = "${OpenCL}", Vulkan = "${Vulkan}") WHERE Device = "${Device}"`;
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -71,7 +71,7 @@ router.patch("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   const Device = req.params.id;
   const {Manufacturer, CUDA, Metal, OpenCL, Vulkan} = req.body;
-  const qry4 = `DELETE * FROM gpu_score WHERE Device = "${id}"`;
+  const qry4 = `DELETE * FROM gpu_score WHERE Device = "${Device}"`;
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);

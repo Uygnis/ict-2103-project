@@ -35,7 +35,7 @@ router.get("/get", (req, res) => {
 //localhost:5001/api/mysql/cpu_benchmark_passmark/get/:id
 router.get("/get/:id", (req, res) => {
   const cpuName = req.params.id;
-  const qry2 = `SELECT * FROM cpu_benchmark_passmark WHERE cpuName = "${id}"`;
+  const qry2 = `SELECT * FROM cpu_benchmark_passmark WHERE cpuName = "${cpuName}"`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -58,7 +58,7 @@ router.get("/getQty", (req, res) => {
 router.patch("/update/:id", (req, res) => {
   const cpuName = req.params.id;
   const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate} = req.body;
-  const qry3 = `UPDATE cpu_benchmark_passmark SET (manufacturer = "${manufacturer}", price = "${price}", cpuMark = "${cpuMark}", cpuValue = "${cpuValue}", threadMark = "${threadMark}", threadValue = "${threadValue}", testDate = "${testDate}") WHERE cpuName = "${id}"`;
+  const qry3 = `UPDATE cpu_benchmark_passmark SET (manufacturer = "${manufacturer}", price = "${price}", cpuMark = "${cpuMark}", cpuValue = "${cpuValue}", threadMark = "${threadMark}", threadValue = "${threadValue}", testDate = "${testDate}") WHERE cpuName = "${cpuName}"`;
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -72,7 +72,7 @@ router.patch("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   const cpuName = req.params.id;
   const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate} = req.body;
-  const qry4 = `DELETE * FROM cpu_benchmark_passmark WHERE cpuName = "${id}"`;
+  const qry4 = `DELETE * FROM cpu_benchmark_passmark WHERE cpuName = "${cpuName}"`;
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);

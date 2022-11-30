@@ -42,7 +42,7 @@ router.get("/get", (req, res) => {
 router.get("/get/:id", (req, res) => {
   const productName = req.params.productName;
   console.log(req.params);
-  const qry2 = `SELECT * FROM gpu_specs WHERE productName = "${id}"`;
+  const qry2 = `SELECT * FROM gpu_specs WHERE productName = "${productName}"`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -65,7 +65,7 @@ router.get("/getQty", (req, res) => {
 router.patch("/update/:id", (req, res) => {
   const productName = req.params.id;
   const {manufacturer, releaseYear, memSize, memBusWidth, gpuClock, memClock, unifiedShader, tmu, rop, igp, bus, memType, gpuChip} = req.body;
-  const qry3 = `UPDATE gpu_specs SET (manufacturer = "${manufacturer}", releaseYear = "${releaseYear}", memSize = "${memSize}", memBusWidth = "${memBusWidth}", gpuClock = "${gpuClock}", memClock = "${memClock}", unifiedShader = "${unifiedShader}", tmu = "${tmu}", rop = "${rop}", igp = "${igp}", bus = "${bus}", memType = "${memType}", gpuChip = "${gpuChip}") WHERE productName = "${id}"`;
+  const qry3 = `UPDATE gpu_specs SET (manufacturer = "${manufacturer}", releaseYear = "${releaseYear}", memSize = "${memSize}", memBusWidth = "${memBusWidth}", gpuClock = "${gpuClock}", memClock = "${memClock}", unifiedShader = "${unifiedShader}", tmu = "${tmu}", rop = "${rop}", igp = "${igp}", bus = "${bus}", memType = "${memType}", gpuChip = "${gpuChip}") WHERE productName = "${productName}"`;
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -79,7 +79,7 @@ router.patch("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   const productName = req.params.id;
   const {manufacturer, releaseYear, memSize, memBusWidth, gpuClock, memClock, unifiedShader, tmu, rop, igp, bus, memType, gpuChip} = req.body;
-  const qry4 = `DELETE * FROM gpu_specs WHERE productName = "${id}"`;
+  const qry4 = `DELETE * FROM gpu_specs WHERE productName = "${productName}"`;
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);

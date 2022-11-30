@@ -8,7 +8,7 @@ router.post("/post", (req, res) => {
   const CPU_Name = req.params.CPU_Name;
   const GPU_Name = req.params.GPU_Name;
   const RAM = req.params.RAM;
-  const price = req.params.Price;
+  const Price = req.params.Price;
   const Listing = req.params.Listing;
   const qry1 = `INSERT INTO company_data(item_ID, CPU_Name, GPU_Name, RAM, Price, Listing) VALUES ("${item_ID}", "${CPU_Name}", "${GPU_Name}", "${RAM}", "${Price}", "${Listing}")`;
   db.query(qry1, (err, result) => {
@@ -35,7 +35,7 @@ router.get("/get", (req, res) => {
 router.get("/get/:id", (req, res) => {
   const item_ID = req.params.id;
   console.log(req.params);
-  const qry2 = `SELECT * FROM company_data JOIN cpu_specs ON company_data.CPU_Name = cpu_specs.modelName JOIN gpu_specs ON amazon.GPU_Name = gpu_specs.productName WHERE item_ID = ${id}`;
+  const qry2 = `SELECT * FROM company_data JOIN cpu_specs ON company_data.CPU_Name = cpu_specs.modelName JOIN gpu_specs ON amazon.GPU_Name = gpu_specs.productName WHERE item_ID = ${item_ID}`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -78,7 +78,7 @@ router.get("/getQty", (req, res) => {
 router.patch("/update/:id", (req, res) => {
   const item_ID = req.params.id;
   const {CPU_Name, GPU_Name, RAM, Price, Listing} = req.body;
-  const qry4 = `UPDATE company_data SET (CPU_Name = "${CPU_Name}", GPU_Name = "${GPU_Name}", RAM = "${RAM}", Price = "${Price}", Listing = "${Listing}") WHERE item_ID = "${id}"`;
+  const qry4 = `UPDATE company_data SET (CPU_Name = "${CPU_Name}", GPU_Name = "${GPU_Name}", RAM = "${RAM}", Price = "${Price}", Listing = "${Listing}") WHERE item_ID = "${item_ID}"`;
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);
@@ -92,7 +92,7 @@ router.patch("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   const item_ID = req.params.id;
   const {CPU_Name, GPU_Name, ram, price, Listing} = req.body;
-  const qry5 = `DELETE * FROM company_data WHERE item_ID = "${id}"`
+  const qry5 = `DELETE * FROM company_data WHERE item_ID = "${item_ID}"`
   db.query(qry5, (err, result) => {
     if (err) {
      console.log(err);
