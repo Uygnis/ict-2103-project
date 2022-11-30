@@ -43,15 +43,15 @@ router.get("/get/:id", async (req, res) => {
       },
       {
         $lookup: {
-          from: "gpu_Score",
+          from: "gpu_Specs",
           localField: "GPU_Name",
-          foreignField: "Device",
-          as: "gpu_score",
+          foreignField: "productName",
+          as: "gpu_specs",
         },
       },
       {
         $lookup: {
-          from: "cpu_benchmark_Passmark",
+          from: "cpu_Specs",
           localField: "CPU_Name",
           foreignField: "cpuName",
           as: "cpu_score",

@@ -11,10 +11,7 @@ router.post("/post", async (req, res) => {
     cpuValue: req.body.cpuValue,
     threadMark: req.body.threadMark,
     threadValue: req.body.threadValue,
-    cores: req.body.cores,
     testDate: req.body.testDate,
-    socket: req.body.socket,
-    category: req.body.category,
   });
 
   try {
@@ -71,9 +68,7 @@ router.patch("/update/:id", async (req, res) => {
 // api/mongo/company_cpu/delete/:id
 router.delete("/delete/:id", async (req, res) => {
   try {
-    const data = await Company_cpuSchema.findByIdAndDelete(
-      req.params.id
-    );
+    const data = await Company_cpuSchema.findByIdAndDelete(req.params.id);
     res.send(`Document with ${data.Listing} has been deleted..`);
   } catch (error) {
     res.status(500).json({ message: error.message });
