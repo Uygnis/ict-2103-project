@@ -37,7 +37,6 @@ router.get("/get", (req, res) => {
 //localhost:5001/api/mysql/gpu_benchmarks/get/:gpuName
 router.get("/get/:gpuName", (req, res) => {
   const gpuName = req.params.gpuName;
-  //console.log(req.params.cpuName);
   const qry2 = `SELECT * FROM gpu_benchmarks WHERE gpuName = ${gpuName}`;
   db.query(qry2, (err, result) => {
     if (err) {
@@ -49,7 +48,7 @@ router.get("/get/:gpuName", (req, res) => {
 
 //localhost:5001/api/mysql/gpu_benchmarks/getQty
 router.get("/getQty", (req, res) => {
-  db.query("SELECT COUNT(gpuName) FROM gpu_benchmarks", (err, result) => {
+  db.query("SELECT COUNT(gpuName) AS gpuName FROM gpu_benchmarks", (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -85,9 +84,20 @@ router.delete("/delete/:gpuName", (req, res) => {
   });
 });
 
+// //localhost:5001/api/mysql/gpu_benchmarks/price
+// router.get("/price", (req, res) => {
+//   const qry5 = 'SELECT gpuName FROM gpu_benchmarks WHERE price IS NOT NULL';
+//   db.query(qry5, (err, result) => {
+//     if (err) {
+//       console.log(err);
+//     }
+//     res.send(result);
+//   });
+// });
+
 //localhost:5001/api/mysql/gpu_benchmarks/exists
 router.get("/exists", (req, res) => {
-  const qry5 = 'SELECT gpuName FROM gpu_benchmarks WHERE price IS NOT NULL';
+  const qry5 = 'SELECT * FROM gpu_benchmarks WHERE EXISTS (SELECT gpu_Name FROM amazon WHERE amazon.gpu_Name = gpu_benchmarks.gpuName)';
   db.query(qry5, (err, result) => {
     if (err) {
       console.log(err);

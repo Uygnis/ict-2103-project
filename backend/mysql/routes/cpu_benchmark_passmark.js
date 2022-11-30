@@ -12,10 +12,7 @@ router.post("/post", (req, res) => {
   const threadMark = req.params.threadMark;
   const threadValue = req.params.threadValue;
   const testDate = req.params.testDate;
-  const cores = req.params.cores;
-  const socket = req.params.socket;
-  const category = req.params.category;
-  const qry1 = 'INSERT INTO cpu_benchmark_passmark(cpuName, manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, cores, testDate, socket, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const qry1 = 'INSERT INTO cpu_benchmark_passmark(cpuName, manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);
@@ -35,11 +32,10 @@ router.get("/get", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/cpu_benchmark_passmark/get/:cpuName
-router.get("/get/:cpuName", (req, res) => {
-  const cpuName = req.params.cpuName;
-  //console.log(req.params.cpuName);
-  const qry2 = `SELECT * FROM cpu_benchmark_passmark WHERE cpuName = ${cpuName}`;
+//localhost:5001/api/mysql/cpu_benchmark_passmark/get/:id
+router.get("/get/:id", (req, res) => {
+  const cpuName = req.params.id;
+  const qry2 = `SELECT * FROM cpu_benchmark_passmark WHERE cpuName = ${id}`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -50,46 +46,7 @@ router.get("/get/:cpuName", (req, res) => {
 
 //localhost:5001/api/mysql/cpu_benchmark_passmark/getQty
 router.get("/getQty", (req, res) => {
-  db.query("SELECT COUNT(cpuName) FROM cpu_benchmark_passmark", (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(result);
-  });
-});
-
-//localhost:5001/api/mysql/cpu_benchmark_passmark/update/:cpuName
-router.patch("/update/:cpuName", (req, res) => {
-  const cpuName = req.params.cpuName;
-  const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, cores, testDate, socket, category} = req.body;
-  const qry3 = 'UPDATE cpu_benchmark_passmark SET (manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, cores, testDate, socket, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE cpuName = ${cpuName}';
-  db.query(qry3, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(result);
-    console.log("Number of records updated: " + result.affectedRows);
-  });
-});
-
-//localhost:5001/api/mysql/cpu_benchmark_passmark/delete/:cpuName
-router.delete("/delete/:cpuName", (req, res) => {
-  const cpuName = req.params.cpuName;
-  const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, cores, testDate, socket, category} = req.body;
-  const qry4 = 'DELETE * FROM cpu_benchmark_passmark WHERE cpuName = ${cpuName}'
-  db.query(qry4, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(result);
-    rconsole.log("Number of records deleted: " + result.affectedRows);
-  });
-});
-
-//localhost:5001/api/mysql/cpu_benchmark_passmark/averageprice
-router.get("/averageprice", (req, res) => {
-  const qry5 = 'SELECT avg(price), manufacturer FROM cpu_benchmark_passmark WHERE price IS NOT NULL GROUP BY manufacturer';
-  db.query(qry5, (err, result) => {
+  db.query("SELECT COUNT(cpuName) as cpuName FROM cpu_benchmark_passmark", (err, result) => {
     if (err) {
       console.log(err);
     }

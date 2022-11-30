@@ -12,10 +12,7 @@ router.post("/post", (req, res) => {
   const threadMark = req.params.threadMark;
   const threadValue = req.params.threadValue;
   const testDate = req.params.testDate;
-  const cores = req.params.cores;
-  const socket = req.params.socket;
-  const category = req.params.category;
-  const qry1 = 'INSERT INTO company_cpu(cpuName, manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, cores, testDate, socket, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const qry1 = 'INSERT INTO company_cpu(cpuName, manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);
@@ -38,7 +35,6 @@ router.get("/get", (req, res) => {
 //localhost:5001/api/mysql/company_cpu/get/:cpuName
 router.get("/get/:cpuName", (req, res) => {
   const cpuName = req.params.cpuName;
-  //console.log(req.params.cpuName);
   const qry2 = `SELECT * FROM company_cpu WHERE cpuName = ${cpuName}`;
   db.query(qry2, (err, result) => {
     if (err) {
@@ -61,8 +57,8 @@ router.get("/getQty", (req, res) => {
 //localhost:5001/api/mysql/company_cpu/update/:cpuName
 router.patch("/update/:cpuName", (req, res) => {
   const cpuName = req.params.cpuName;
-  const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, cores, testDate, socket, category} = req.body;
-  const qry3 = 'UPDATE company_cpu SET (manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, cores, testDate, socket, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE cpuName = ${cpuName}';
+  const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate} = req.body;
+  const qry3 = 'UPDATE company_cpu SET (manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE cpuName = ${cpuName}';
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -75,7 +71,7 @@ router.patch("/update/:cpuName", (req, res) => {
 //localhost:5001/api/mysql/company_cpu/delete/:cpuName
 router.delete("/delete/:cpuName", (req, res) => {
   const cpuName = req.params.cpuName;
-  const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, cores, testDate, socket, category} = req.body;
+  const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate} = req.body;
   const qry4 = 'DELETE * FROM company_cpu WHERE cpuName = ${cpuName}'
   db.query(qry4, (err, result) => {
     if (err) {
