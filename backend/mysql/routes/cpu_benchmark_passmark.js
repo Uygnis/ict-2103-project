@@ -54,4 +54,42 @@ router.get("/getQty", (req, res) => {
   });
 });
 
+//localhost:5001/api/mysql/cpu_benchmark_passmark/update/:id
+router.patch("/update/:id", (req, res) => {
+  const cpuName = req.params.id;
+  const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate} = req.body;
+  const qry3 = 'UPDATE cpu_benchmark_passmark SET (manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE cpuName = ${id}';
+  db.query(qry3, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+    console.log("Number of records updated: " + result.affectedRows);
+  });
+});
+
+//localhost:5001/api/mysql/cpu_benchmark_passmark/delete/:id
+router.delete("/delete/:id", (req, res) => {
+  const cpuName = req.params.id;
+  const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate} = req.body;
+  const qry4 = 'DELETE * FROM cpu_benchmark_passmark WHERE cpuName = ${id}'
+  db.query(qry4, (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+    rconsole.log("Number of records deleted: " + result.affectedRows);
+  });
+});
+
+//localhost:5001/api/mysql/cpu_benchmark_passmark/getMaxCpuMark
+router.get("/getMaxCpuMark", (req, res) => {
+  db.query('Select MAX(cpuMark) FROM cpu_benchmark_passmark', (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
+  });
+});
+
 module.exports = router;

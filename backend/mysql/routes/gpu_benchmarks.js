@@ -34,10 +34,10 @@ router.get("/get", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/gpu_benchmarks/get/:gpuName
-router.get("/get/:gpuName", (req, res) => {
-  const gpuName = req.params.gpuName;
-  const qry2 = `SELECT * FROM gpu_benchmarks WHERE gpuName = ${gpuName}`;
+//localhost:5001/api/mysql/gpu_benchmarks/get/:id
+router.get("/get/:id", (req, res) => {
+  const gpuName = req.params.id;
+  const qry2 = `SELECT * FROM gpu_benchmarks WHERE gpuName = ${id}`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -56,11 +56,11 @@ router.get("/getQty", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/gpu_benchmarks/update/:gpuName
-router.patch("/update/:gpuName", (req, res) => {
+//localhost:5001/api/mysql/gpu_benchmarks/update/:id
+router.patch("/update/:id", (req, res) => {
   const gpuName = req.params.gpuName;
   const {Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category} = req.body;
-  const qry3 = 'UPDATE gpu_benchmarks SET (Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE gpuName = ${gpuName}';
+  const qry3 = 'UPDATE gpu_benchmarks SET (Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE gpuName = ${id}';
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -70,11 +70,11 @@ router.patch("/update/:gpuName", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/gpu_benchmarks/delete/:modelName
-router.delete("/delete/:gpuName", (req, res) => {
-  const gpuName = req.params.gpuName;
+//localhost:5001/api/mysql/gpu_benchmarks/delete/:id
+router.delete("/delete/:id", (req, res) => {
+  const gpuName = req.params.id;
   const {Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category} = req.body;
-  const qry4 = 'DELETE * FROM gpu_benchmarks WHERE gpuName = ${gpuName}'
+  const qry4 = 'DELETE * FROM gpu_benchmarks WHERE gpuName = ${id}'
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);
@@ -84,20 +84,9 @@ router.delete("/delete/:gpuName", (req, res) => {
   });
 });
 
-// //localhost:5001/api/mysql/gpu_benchmarks/price
-// router.get("/price", (req, res) => {
-//   const qry5 = 'SELECT gpuName FROM gpu_benchmarks WHERE price IS NOT NULL';
-//   db.query(qry5, (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//     res.send(result);
-//   });
-// });
-
 //localhost:5001/api/mysql/gpu_benchmarks/exists
 router.get("/exists", (req, res) => {
-  const qry5 = 'SELECT * FROM gpu_benchmarks WHERE EXISTS (SELECT gpu_Name FROM amazon WHERE amazon.gpu_Name = gpu_benchmarks.gpuName)';
+  const qry5 = 'SELECT gpuName, price FROM gpu_benchmarks WHERE price IS NOT NULL';
   db.query(qry5, (err, result) => {
     if (err) {
       console.log(err);
@@ -105,17 +94,5 @@ router.get("/exists", (req, res) => {
     res.send(result);
   });
 });
-
-//localhost:5001/api/mysql/gpu_benchmarks/averageprice
-router.get("/averageprice", (req, res) => {
-  const qry6 = 'SELECT avg(price), manufacturer FROM gpu_benchmarks WHERE price IS NOT NULL GROUP BY manufacturer';
-  db.query(qry6, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(result);
-  });
-});
-
 
 module.exports = router;

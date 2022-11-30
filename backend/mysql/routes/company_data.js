@@ -31,11 +31,11 @@ router.get("/get", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_data/get/:item_ID
-router.get("/get/:item_ID", (req, res) => {
-  const item_ID = req.params.item_ID;
+//localhost:5001/api/mysql/company_data/get/:id
+router.get("/get/:id", (req, res) => {
+  const item_ID = req.params.id;
   console.log(req.params);
-  const qry2 = `SELECT * FROM company_data WHERE item_ID = ${item_ID}`;
+  const qry2 = `SELECT * FROM company_data INNER JOIN company_cpu ON company_data.CPU_NAME = company_cpu.cpuName INNER JOIN company_gpu ON company_data.GPU_NAME = company_gpu.Device WHERE item_ID = ${id}`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -48,7 +48,7 @@ router.get("/get/:item_ID", (req, res) => {
 router.get("/q=:query", async (req, res) => {
   const query = req.params.query;
   console.log(req.params);
-  const qry3 = 'SELECT * FROM company_data WHERE Listing LIKE %${query}%';
+  const qry3 = 'SELECT * FROM company_data INNER JOIN company_cpu ON company_data.CPU_NAME = company_cpu.cpuName INNER JOIN company_gpu ON company_data.GPU_NAME = company_gpu.Device WHERE Listing LIKE %${query}%';
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -87,11 +87,11 @@ router.get("/getQty", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_data/update/:item_ID
-router.patch("/update/:item_ID", (req, res) => {
-  const item_ID = req.params.item_ID;
+//localhost:5001/api/mysql/company_data/update/:id
+router.patch("/update/:id", (req, res) => {
+  const item_ID = req.params.id;
   const {CPU_Name, GPU_Name, ram, price, Listing} = req.body;
-  const qry4 = 'UPDATE company_data SET (CPU_Name, GPU_Name, ram, price, Listing) VALUES (?, ?, ?, ?, ?) WHERE item_ID = ${item_ID}';
+  const qry4 = 'UPDATE company_data SET (CPU_Name, GPU_Name, ram, price, Listing) VALUES (?, ?, ?, ?, ?) WHERE item_ID = ${id}';
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);
@@ -101,11 +101,11 @@ router.patch("/update/:item_ID", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_data/delete/:item_ID
-router.delete("/delete/:item_ID", (req, res) => {
-  const item_ID = req.params.item_ID;
+//localhost:5001/api/mysql/company_data/delete/:id
+router.delete("/delete/:id", (req, res) => {
+  const item_ID = req.params.id;
   const {CPU_Name, GPU_Name, ram, price, Listing} = req.body;
-  const qry5 = 'DELETE * FROM company_data WHERE item_ID = ${item_ID}'
+  const qry5 = 'DELETE * FROM company_data WHERE item_ID = ${id}'
   db.query(qry5, (err, result) => {
     if (err) {
      console.log(err);

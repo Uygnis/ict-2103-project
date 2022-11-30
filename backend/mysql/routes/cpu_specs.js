@@ -32,11 +32,11 @@ router.get("/get", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/cpu_specs/get/:modelName
-router.get("/get/:modelName", (req, res) => {
-  const modelName = req.params.modelName;
+//localhost:5001/api/mysql/cpu_specs/get/:id
+router.get("/get/:id", (req, res) => {
+  const modelName = req.params.id;
   //console.log(req.params.cpuName);
-  const qry2 = `SELECT * FROM cpu_specs WHERE modelName = ${modelName}`;
+  const qry2 = `SELECT * FROM cpu_specs WHERE modelName = ${id}`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -55,11 +55,11 @@ router.get("/getQty", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/cpu_specs/update/:modelName
-router.patch("/update/:modelName", (req, res) => {
+//localhost:5001/api/mysql/cpu_specs/update/:id
+router.patch("/update/:id", (req, res) => {
   const modelName = req.params.modelName;
   const {Manufacturer, launchDate, numCores, numThreads, baseClock, boostClock} = req.body;
-  const qry3 = 'UPDATE cpu_specs SET (Manufacturer, launchDate, numCores, numThreads, baseClock, boostClock) VALUES (?, ?, ?, ?, ?, ?) WHERE modelName = ${modelName}';
+  const qry3 = 'UPDATE cpu_specs SET (Manufacturer, launchDate, numCores, numThreads, baseClock, boostClock) VALUES (?, ?, ?, ?, ?, ?) WHERE modelName = ${id}';
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -69,11 +69,11 @@ router.patch("/update/:modelName", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/cpu_specs/delete/:modelName
-router.delete("/delete/:modelName", (req, res) => {
-  const modelName = req.params.modelName;
+//localhost:5001/api/mysql/cpu_specs/delete/:id
+router.delete("/delete/:id", (req, res) => {
+  const modelName = req.params.id;
   const {Manufacturer, launchDate, numCores, numThreads, baseClock, boostClock} = req.body;
-  const qry4 = 'DELETE * FROM cpu_specs WHERE modelName = ${modelName}'
+  const qry4 = 'DELETE * FROM cpu_specs WHERE modelName = ${id}'
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);

@@ -30,11 +30,11 @@ router.get("/get", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/gpu_score/get/:Device
-router.get("/get/:Device", (req, res) => {
-  const Device = req.params.Device;
+//localhost:5001/api/mysql/gpu_score/get/:id
+router.get("/get/:id", (req, res) => {
+  const Device = req.params.id;
   console.log(req.params);
-  const qry2 = `SELECT * FROM gpu_score WHERE Device = ${Device}`;
+  const qry2 = `SELECT * FROM gpu_score WHERE Device = ${id}`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -45,7 +45,7 @@ router.get("/get/:Device", (req, res) => {
 
 //localhost:5001/api/mysql/gpu_score/getQty
 router.get("/getQty", (req, res) => {
-  db.query("SELECT COUNT(Device) FROM gpu_score", (err, result) => {
+  db.query("SELECT COUNT(Device) as Device FROM gpu_score", (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -53,11 +53,11 @@ router.get("/getQty", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/gpu_score/update/:Device
-router.patch("/update/:Device", (req, res) => {
-  const Device = req.params.Device;
+//localhost:5001/api/mysql/gpu_score/update/:id
+router.patch("/update/:id", (req, res) => {
+  const Device = req.params.id;
   const {Manufacturer, CUDA, Metal, OpenCL, Vulkan} = req.body;
-  const qry3 = 'UPDATE gpu_benchmarks SET (Manufacturer, CUDA, Metal, OpenCL, Vulkan) VALUES (?, ?, ?, ?, ?) WHERE Device = ${Device}';
+  const qry3 = 'UPDATE gpu_score SET (Manufacturer, CUDA, Metal, OpenCL, Vulkan) VALUES (?, ?, ?, ?, ?) WHERE Device = ${id}';
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -67,17 +67,27 @@ router.patch("/update/:Device", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/gpu_score/delete/:Device
-router.delete("/delete/:Device", (req, res) => {
-  const Device = req.params.Device;
+//localhost:5001/api/mysql/gpu_score/delete/:id
+router.delete("/delete/:id", (req, res) => {
+  const Device = req.params.id;
   const {Manufacturer, CUDA, Metal, OpenCL, Vulkan} = req.body;
-  const qry4 = 'DELETE * FROM gpu_benchmarks WHERE Device = ${Device}'
+  const qry4 = 'DELETE * FROM gpu_benchmarks WHERE Device = ${id}'
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);
     }
     res.send(result);
     rconsole.log("Number of records deleted: " + result.affectedRows);
+  });
+});
+
+//localhost:5001/api/mysql/gpu_score/getMaxOpenCL
+router.get("/getMaxOpenCL", (req, res) => {
+  db.query('Select MAX(OpenCL) FROM gpu_score', (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
   });
 });
 

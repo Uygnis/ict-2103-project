@@ -32,10 +32,10 @@ router.get("/get", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_cpu/get/:cpuName
-router.get("/get/:cpuName", (req, res) => {
-  const cpuName = req.params.cpuName;
-  const qry2 = `SELECT * FROM company_cpu WHERE cpuName = ${cpuName}`;
+//localhost:5001/api/mysql/company_cpu/get/:id
+router.get("/get/:id", (req, res) => {
+  const cpuName = req.params.id;
+  const qry2 = `SELECT * FROM company_cpu WHERE cpuName = ${id}`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -54,11 +54,11 @@ router.get("/getQty", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_cpu/update/:cpuName
-router.patch("/update/:cpuName", (req, res) => {
-  const cpuName = req.params.cpuName;
+//localhost:5001/api/mysql/company_cpu/update/:id
+router.patch("/update/:id", (req, res) => {
+  const cpuName = req.params.id;
   const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate} = req.body;
-  const qry3 = 'UPDATE company_cpu SET (manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE cpuName = ${cpuName}';
+  const qry3 = 'UPDATE company_cpu SET (manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE cpuName = ${id}';
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -68,17 +68,27 @@ router.patch("/update/:cpuName", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_cpu/delete/:cpuName
-router.delete("/delete/:cpuName", (req, res) => {
-  const cpuName = req.params.cpuName;
+//localhost:5001/api/mysql/company_cpu/delete/:id
+router.delete("/delete/:id", (req, res) => {
+  const cpuName = req.params.id;
   const {manufacturer, price, cpuMark, cpuValue, threadMark, threadValue, testDate} = req.body;
-  const qry4 = 'DELETE * FROM company_cpu WHERE cpuName = ${cpuName}'
+  const qry4 = 'DELETE * FROM company_cpu WHERE cpuName = ${id}'
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);
     }
     res.send(result);
     rconsole.log("Number of records deleted: " + result.affectedRows);
+  });
+});
+
+//localhost:5001/api/mysql/company_cpu/getMaxCpuMark
+router.get("/getMaxCpuMark", (req, res) => {
+  db.query('Select MAX(cpuMark) FROM company_cpu', (err, result) => {
+    if (err) {
+      console.log(err);
+    }
+    res.send(result);
   });
 });
 

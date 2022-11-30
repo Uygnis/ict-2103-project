@@ -56,9 +56,9 @@ router.get("/getQty", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/company_gpu/update/:gpuName
+//localhost:5001/api/mysql/company_gpu/update/:id
 router.patch("/update/:id", (req, res) => {
-  const gpuName = req.params.gpuName;
+  const gpuName = req.params.id;
   const {Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category} = req.body;
   const qry3 = 'UPDATE company_gpu SET (Manufacturer, G3Dmark, G2Dmark, price, gpuValue, TDP, powerPerformance, testDate, category) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE gpuName = ${id}';
   db.query(qry3, (err, result) => {

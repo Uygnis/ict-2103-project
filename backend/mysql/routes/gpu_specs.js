@@ -18,7 +18,7 @@ router.post("/post", (req, res) => {
   const bus = req.params.bus;
   const memType = req.params.memType;
   const gpuChip = req.params.gpuChip;
-  const qry1 = 'INSERT INTO gpu_benchmarks(productName, manufacturer, releaseYear, memSize, memBusWidth, gpuClock, memClock, unifiedShader, tmu, rop, igp, bus, memType, gpuChip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+  const qry1 = 'INSERT INTO gpu_specs(productName, manufacturer, releaseYear, memSize, memBusWidth, gpuClock, memClock, unifiedShader, tmu, rop, igp, bus, memType, gpuChip) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);

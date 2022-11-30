@@ -12,11 +12,11 @@ router.get("/get", (req, res) => {
   });
 });
 
-//localhost:5001/api/mysql/amazon_data/get/:item_ID
-router.get("/get/:item_ID", (req, res) => {
+//localhost:5001/api/mysql/amazon_data/get/:id
+router.get("/get/:id", (req, res) => {
   const item_ID = req.params.item_ID;
   console.log(req.params);
-  const qry1 = `SELECT * FROM amazon WHERE item_ID = ${item_ID}`;
+  const qry1 = `SELECT * FROM amazon WHERE item_ID = ${id}`;
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);
@@ -29,7 +29,7 @@ router.get("/get/:item_ID", (req, res) => {
 router.get("/q=:query", async (req, res) => {
   const query = req.params.query;
   console.log(req.params);
-  const qry2 = 'SELECT * FROM amazon WHERE Listing LIKE %${query}%';
+  const qry2 = `SELECT * FROM amazon WHERE Listing LIKE %${query}%`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -71,7 +71,7 @@ router.get("/getQty", (req, res) => {
 //localhost:5001/api/mysql/amazon_data/filter/:cpuMark
 router.get("/filter/:cpuMark", (req, res) => {
   const cpuMark = req.params.cpuMark;
-  const qry3 = 'SELECT * FROM amazon INNER JOIN cpu_benchmark_passmark ON amazon.CPU_NAME = cpu_benchmark_passmark.cpuName INNER JOIN gpu_specs ON amazon.GPU_NAME = gpu_specs.productName WHERE cpu_benchmark_passmark.cpuMark >= ${cpuMark}';
+  const qry3 = `SELECT * FROM amazon INNER JOIN cpu_benchmark_passmark ON amazon.CPU_NAME = cpu_benchmark_passmark.cpuName INNER JOIN gpu_specs ON amazon.GPU_NAME = gpu_specs.productName WHERE cpu_benchmark_passmark.cpuMark >= ${cpuMark}`;
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
