@@ -12,6 +12,7 @@ import AddProduct from "./pages/AddProduct";
 import Product from "./pages/Product.jsx";
 import ProductList from "./pages/ProductList.jsx";
 import ProductPage from "./pages/Comparison";
+import GpuList from "./pages/GpuList";
 
 function App() {
   const baseURL = "http://localhost:5001/api/mongo";
@@ -77,6 +78,8 @@ function App() {
           <Route path="/analytics" element={<Analytics />} />
           <Route path="/product" element={<Product />} />
           <Route path="/productList" element={<ProductList />} />
+          <Route path="/gpuList" element={<GpuList />} />
+
           <Route
             path="/search"
             element={

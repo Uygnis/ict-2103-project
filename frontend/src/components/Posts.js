@@ -28,11 +28,11 @@ const Posts = ({ posts, loading }) => {
 
                 <td scope="col"
                         className="px-40 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {post.Ram}</td>
+                            {post.ram}</td>
 
                 <td scope="col"
                         className="px-40 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            {post.Price}</td>
+                            {post.price}</td>
         </tr>
       ))}
     </tbody>
