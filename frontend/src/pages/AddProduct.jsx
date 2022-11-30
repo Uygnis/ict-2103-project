@@ -143,7 +143,7 @@ const AddProduct = () => {
           </thead>
         </table>
       </div>
-      <Company company={company} setCompany={setCompany} setDevice={setDevice} device = {device}/>
+      <Company company={company}/>
 
     </div>
     

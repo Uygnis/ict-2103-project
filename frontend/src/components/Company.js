@@ -1,28 +1,17 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
-const Company = ({ company, loading,setCompany, setDevice,device }) => {
+
+const Company = ({ company, loading }) => {
   if (loading) {
     return <h2>Loading...</h2>;
   }
   async function handleClick(e){
         console.log(e)
         // Send a post request to update the data in the database.
-       await fetch(`http://localhost:5001/api/mongo/company_data/delete/${device._id}`, {
+        return await fetch(`http://localhost:5001/api/mongo/company_data/delete/${e._id}`, {
           method: "DELETE",
- 
           headers: { "Content-Type": "application/json" },
         })
         window.location.reload(true);
-  }
-  async function handleUpdate(e){
-    console.log(device)
-     await fetch(`http://localhost:5001/api/mongo/company_data/update/${e._id}`,{
-      method:"PATCH",
-      body: JSON.stringify(device),
-      headers: { "Content-Type": "application/json" },
-    })
-    console.log(e)
-    // window.location.reload(true);
   }
  
   return (
@@ -53,30 +42,9 @@ const Company = ({ company, loading,setCompany, setDevice,device }) => {
                             {e.price}
                             </td>
                             <td class="inputbox">
-                              <td><input type="text" required="required" style={{border: '1px solid black'}}/>
-    <input type="text" required="required" style={{border: '1px solid black'}} onChange={i=>{
-      console.log(i.target.value)
-      setDevice({...device,GPU_Name:i.target.value})
-    }}/>
-    {/* <input type="text" required="required"
-             onChange={
-              i=>{
-                
-                
-              }
-            }/> */}
-    <input type="text" required="required" style={{border: '1px solid black'}}/>
-    <input type="text" required="required" style={{border: '1px solid black'}}/>
-    <input type="text" required="required" style={{border: '1px solid black'}}/></td>
             <input 
             onClick={i=>handleClick(e)}
              type="button" value="delete"/>
-            <input 
-            onClick={i=>handleUpdate(e)}
-             type="button" value="update"/>
-       
-        
-  
       </td>
         </tr>
       ))}
