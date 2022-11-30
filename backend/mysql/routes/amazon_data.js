@@ -29,7 +29,7 @@ router.get("/get/:id", (req, res) => {
 router.get("/q=:query", async (req, res) => {
   const query = req.params.query;
   console.log(req.params);
-  const qry2 = `SELECT * FROM amazon WHERE Listing LIKE %${query}%`;
+  const qry2 = `SELECT * FROM amazon WHERE Listing LIKE "%${query}%"`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
