@@ -13,7 +13,7 @@ import Product from "./pages/Product.jsx";
 import ProductList from "./pages/ProductList.jsx";
 import ProductPage from "./pages/Comparison";
 import GpuList from "./pages/GpuList";
-
+import Update from "./pages/Update";
 function App() {
   const baseURL = "http://localhost:5001/api/mongo";
   const [db, setDb] = useState({});
@@ -79,7 +79,7 @@ function App() {
           <Route path="/product" element={<Product />} />
           <Route path="/productList" element={<ProductList />} />
           <Route path="/gpuList" element={<GpuList />} />
-
+          <Route path="/update" element={<Update/>} />
           <Route
             path="/search"
             element={
