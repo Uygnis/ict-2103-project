@@ -7,10 +7,10 @@ router.post("/post", (req, res) => {
   const item_ID = req.params.item_ID;
   const CPU_Name = req.params.CPU_Name;
   const GPU_Name = req.params.GPU_Name;
-  const ram = req.params.ram;
-  const price = req.params.price;
+  const RAM = req.params.RAM;
+  const price = req.params.Price;
   const Listing = req.params.Listing;
-  const qry1 = 'INSERT INTO company_data(item_ID, CPU_Name, GPU_Name, ram, price, Listing) VALUES (?, ?, ?, ?, ?, ?)';
+  const qry1 = `INSERT INTO company_data(item_ID, CPU_Name, GPU_Name, RAM, Price, Listing) VALUES ("${item_ID}", "${CPU_Name}", "${GPU_Name}", "${RAM}", "${Price}", "${Listing}")`;
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);
@@ -22,7 +22,7 @@ router.post("/post", (req, res) => {
 
 //localhost:5001/api/mysql/company_data/get
 router.get("/get", (req, res) => {
-  const qry1 = 'SELECT * FROM company_data INNER JOIN company_cpu ON company_data.CPU_NAME = company_cpu.cpuName INNER JOIN company_gpu ON company_data.GPU_NAME = company_gpu.Device';
+  const qry1 = 'SELECT * FROM company_data JOIN cpu_specs ON company_data.CPU_Name = cpu_specs.modelName JOIN gpu_specs ON amazon.GPU_Name = gpu_specs.productName';
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);
@@ -35,21 +35,8 @@ router.get("/get", (req, res) => {
 router.get("/get/:id", (req, res) => {
   const item_ID = req.params.id;
   console.log(req.params);
-  const qry2 = `SELECT * FROM company_data INNER JOIN company_cpu ON company_data.CPU_NAME = company_cpu.cpuName INNER JOIN company_gpu ON company_data.GPU_NAME = company_gpu.Device WHERE item_ID = ${id}`;
+  const qry2 = `SELECT * FROM company_data JOIN cpu_specs ON company_data.CPU_Name = cpu_specs.modelName JOIN gpu_specs ON amazon.GPU_Name = gpu_specs.productName WHERE item_ID = ${id}`;
   db.query(qry2, (err, result) => {
-    if (err) {
-      console.log(err);
-    }
-    res.send(result);
-  });
-});
-
-//localhost:5001/api/mysql/company_data/q=:query
-router.get("/q=:query", async (req, res) => {
-  const query = req.params.query;
-  console.log(req.params);
-  const qry3 = 'SELECT * FROM company_data INNER JOIN company_cpu ON company_data.CPU_NAME = company_cpu.cpuName INNER JOIN company_gpu ON company_data.GPU_NAME = company_gpu.Device WHERE Listing LIKE %${query}%';
-  db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -59,7 +46,7 @@ router.get("/q=:query", async (req, res) => {
 
 //localhost:5001/api/mysql/company_data/getPriceMax
 router.get("/getPriceMax", (req, res) => {
-  db.query('Select MAX(Price) FROM company_data', (err, result) => {
+  db.query('Select MAX(Price) FROM company_data JOIN cpu_specs ON company_data.CPU_Name = cpu_specs.modelName JOIN gpu_specs ON amazon.GPU_Name = gpu_specs.productName', (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -69,7 +56,7 @@ router.get("/getPriceMax", (req, res) => {
 
 //localhost:5001/api/mysql/company_data/getPriceMin
 router.get("/getPriceMin", (req, res) => {
-  db.query('SELECT MIN(price) FROM company_data', (err, result) => {
+  db.query('SELECT MIN(price) FROM company_data JOIN cpu_specs ON company_data.CPU_Name = cpu_specs.modelName JOIN gpu_specs ON amazon.GPU_Name = gpu_specs.productName', (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -79,7 +66,7 @@ router.get("/getPriceMin", (req, res) => {
 
 //localhost:5001/api/mysql/company_data/getQty
 router.get("/getQty", (req, res) => {
-  db.query('SELECT COUNT(item_ID) as item_ID FROM company_data', (err, result) => {
+  db.query('SELECT COUNT(item_ID) as item_ID FROM company_data JOIN cpu_specs ON company_data.CPU_Name = cpu_specs.modelName JOIN gpu_specs ON amazon.GPU_Name = gpu_specs.productName', (err, result) => {
     if (err) {
       console.log(err);
     }
@@ -90,8 +77,8 @@ router.get("/getQty", (req, res) => {
 //localhost:5001/api/mysql/company_data/update/:id
 router.patch("/update/:id", (req, res) => {
   const item_ID = req.params.id;
-  const {CPU_Name, GPU_Name, ram, price, Listing} = req.body;
-  const qry4 = 'UPDATE company_data SET (CPU_Name, GPU_Name, ram, price, Listing) VALUES (?, ?, ?, ?, ?) WHERE item_ID = ${id}';
+  const {CPU_Name, GPU_Name, RAM, Price, Listing} = req.body;
+  const qry4 = `UPDATE company_data SET (CPU_Name = "${CPU_Name}", GPU_Name = "${GPU_Name}", RAM = "${RAM}", Price = "${Price}", Listing = "${Listing}") WHERE item_ID = "${id}"`;
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);
@@ -105,7 +92,7 @@ router.patch("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   const item_ID = req.params.id;
   const {CPU_Name, GPU_Name, ram, price, Listing} = req.body;
-  const qry5 = 'DELETE * FROM company_data WHERE item_ID = ${id}'
+  const qry5 = `DELETE * FROM company_data WHERE item_ID = "${id}"`
   db.query(qry5, (err, result) => {
     if (err) {
      console.log(err);

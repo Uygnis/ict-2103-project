@@ -10,7 +10,7 @@ router.post("/post", (req, res) => {
   const Metal = req.params.Metal;
   const OpenCL = req.params.OpenCL;
   const Vulkan = req.params.Vulkan;
-  const qry1 = 'INSERT INTO gpu_score(Device, Manufacturer, CUDA, Metal, OpenCL, Vulkan) VALUES (?, ?, ?, ?, ?, ?)';
+  const qry1 = `INSERT INTO gpu_score(Device, Manufacturer, CUDA, Metal, OpenCL, Vulkan) VALUES ("${Device}", "${Manufacturer}", "${CUDA}", "${Metal}", "${OpenCL}", "${Vulkan}")`;
   db.query(qry1, (err, result) => {
     if (err) {
       console.log(err);
@@ -34,7 +34,7 @@ router.get("/get", (req, res) => {
 router.get("/get/:id", (req, res) => {
   const Device = req.params.id;
   console.log(req.params);
-  const qry2 = `SELECT * FROM gpu_score WHERE Device = ${id}`;
+  const qry2 = `SELECT * FROM gpu_score WHERE Device = "${id}"`;
   db.query(qry2, (err, result) => {
     if (err) {
       console.log(err);
@@ -57,7 +57,7 @@ router.get("/getQty", (req, res) => {
 router.patch("/update/:id", (req, res) => {
   const Device = req.params.id;
   const {Manufacturer, CUDA, Metal, OpenCL, Vulkan} = req.body;
-  const qry3 = 'UPDATE gpu_score SET (Manufacturer, CUDA, Metal, OpenCL, Vulkan) VALUES (?, ?, ?, ?, ?) WHERE Device = ${id}';
+  const qry3 = `UPDATE gpu_score SET (Manufacturer = "${Manufacturer}", CUDA = "${CUDA}", Metal = "${Metal}", OpenCL = "${OpenCL}", Vulkan = "${Vulkan}") WHERE Device = "${id}"`;
   db.query(qry3, (err, result) => {
     if (err) {
       console.log(err);
@@ -71,7 +71,7 @@ router.patch("/update/:id", (req, res) => {
 router.delete("/delete/:id", (req, res) => {
   const Device = req.params.id;
   const {Manufacturer, CUDA, Metal, OpenCL, Vulkan} = req.body;
-  const qry4 = 'DELETE * FROM gpu_benchmarks WHERE Device = ${id}'
+  const qry4 = `DELETE * FROM gpu_score WHERE Device = "${id}"`;
   db.query(qry4, (err, result) => {
     if (err) {
       console.log(err);
