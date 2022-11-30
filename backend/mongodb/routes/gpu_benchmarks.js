@@ -86,6 +86,23 @@ router.get("/exists", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+// api/mongo/gpu_benchmarks/avg
+router.get("/avg", async (req, res) => {
+  try {
+    const data = await Gpu_benchmarksSchema.aggregate([
+      {
+        $group: {
+          _id: "$Manufacturer",
+          sum: { $sum: "$price" },
+          avg: { $avg: "$price" },
+        },
+      },
+    ]);
 
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 
 module.exports = router;
