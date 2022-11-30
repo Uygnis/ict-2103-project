@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Card from "../components/card/Card";
 import axios from "axios";
-
+import "./Comparison.css"
 const ProductPage = ({ gpuMax = 0, maxCPUMark = 0, query, setQuery }) => {
   const MAX_GPU = gpuMax.OpenCL;
   const MAX_CPU = maxCPUMark.cpuMark;
@@ -39,7 +39,6 @@ const ProductPage = ({ gpuMax = 0, maxCPUMark = 0, query, setQuery }) => {
               ref={textRef}
               onChange={(e) => setQuery(e.target.value)}
             />
-
             <button href={`/search/${query}`} type="submit">
               Submit
             </button>
